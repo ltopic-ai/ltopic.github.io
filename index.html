@@ -7,60 +7,158 @@
 
   <style>
     :root{
-      --bg:#0b0d12;
-      --panel:#111522;
+      --bg:#15171c;
+      --panel:#1c1f26;
       --text:#e8ecf3;
       --muted:#aab3c5;
-      --line:#20263a;
+      --line:#2a2f3a;
       --accent:#7aa2ff;
     }
+
     *{box-sizing:border-box}
+
     body{
       margin:0;
-      background:radial-gradient(1200px 600px at 20% -10%, #1a2140 0%, var(--bg) 60%);
+      background: linear-gradient(180deg, #1f2229 0%, var(--bg) 100%);
       color:var(--text);
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
       line-height:1.6;
     }
+
     a{color:var(--accent); text-decoration:none}
     a:hover{text-decoration:underline}
+
     .container{max-width:980px; margin:0 auto; padding:28px 18px 60px}
+
     .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:16px; padding:14px 16px;
-      background:rgba(17,21,34,.65); border:1px solid var(--line);
-      border-radius:14px; backdrop-filter: blur(8px);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      padding:14px 18px;
+      background:rgba(28,31,38,.85);
+      border:1px solid var(--line);
+      border-radius:14px;
     }
-    .brand{display:flex; align-items:center; gap:12px}
-    .brand img{height:34px}
-    .nav a{margin-left:14px; color:var(--muted)}
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+    }
+
+    .brand img{height:36px}
+
+    .nav a{
+      margin-left:16px;
+      color:var(--muted);
+      font-size:14px;
+    }
+
     .nav a:hover{color:var(--text)}
-    .hero{padding:46px 8px 18px}
-    h1{font-size:44px; letter-spacing:-0.02em; margin:0 0 10px}
-    .lead{font-size:18px; color:var(--muted); max-width:760px}
-    .cta{display:flex; gap:12px; margin-top:18px; flex-wrap:wrap}
+
+    .hero{
+      padding:54px 6px 18px;
+    }
+
+    h1{
+      font-size:44px;
+      letter-spacing:-0.02em;
+      margin:0 0 14px;
+    }
+
+    .lead{
+      font-size:18px;
+      color:var(--muted);
+      max-width:780px;
+    }
+
+    .cta{
+      display:flex;
+      gap:12px;
+      margin-top:22px;
+      flex-wrap:wrap;
+    }
+
     .btn{
-      display:inline-block; padding:10px 14px; border-radius:12px;
-      border:1px solid var(--line); background:rgba(17,21,34,.7);
+      display:inline-block;
+      padding:11px 16px;
+      border-radius:12px;
+      border:1px solid var(--line);
+      background:rgba(28,31,38,.85);
       color:var(--text);
+      font-size:14px;
     }
-    .btn.primary{background:linear-gradient(180deg, #2a3a78, #1b2550); border-color:#2c3a73}
-    .grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px}
+
+    .btn.primary{
+      background:linear-gradient(180deg, #2e3f8f, #1f2a63);
+      border-color:#34448f;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+      margin-top:28px;
+    }
+
     .card{
-      padding:16px; border-radius:14px; border:1px solid var(--line);
-      background:rgba(17,21,34,.55);
+      padding:18px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(28,31,38,.85);
     }
-    .card h3{margin:0 0 6px; font-size:16px}
-    .card p{margin:0; color:var(--muted); font-size:14px}
-    .section{margin-top:26px; padding-top:18px; border-top:1px solid var(--line)}
-    h2{margin:0 0 10px; font-size:22px}
-    .footer{margin-top:34px; color:var(--muted); font-size:13px}
-    @media (max-width:900px){ .grid{grid-template-columns:1fr} h1{font-size:36px} }
+
+    .card h3{
+      margin:0 0 6px;
+      font-size:16px;
+    }
+
+    .card p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+    }
+
+    .section{
+      margin-top:34px;
+      padding-top:20px;
+      border-top:1px solid var(--line);
+    }
+
+    h2{
+      margin:0 0 10px;
+      font-size:22px;
+    }
+
+    .fine{
+      color:var(--muted);
+      font-size:14px;
+      max-width:820px;
+    }
+
+    .footer{
+      margin-top:40px;
+      padding-top:18px;
+      border-top:1px solid var(--line);
+      color:var(--muted);
+      font-size:13px;
+      display:flex;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    @media (max-width:900px){
+      .grid{grid-template-columns:1fr}
+      h1{font-size:36px}
+    }
   </style>
 </head>
 
 <body>
   <div class="container">
+
     <div class="topbar">
       <div class="brand">
         <img src="assets/ltopic.svg" alt="L-TOPIC">
@@ -74,42 +172,54 @@
     </div>
 
     <div class="hero">
-      <h1>Research-driven cognitive architecture</h1>
+      <h1>Cognitive AI platform for long-horizon reasoning</h1>
+
       <p class="lead">
-        L-TOPIC explores long-horizon, goal-oriented AI systems through persistent memory,
-        internal world models, and structured reasoning over time.
+        L-TOPIC is a platform designed to build AI systems capable of maintaining
+        context over time, reasoning across extended horizons, and operating
+        toward multiple goals with continuity.
       </p>
 
       <div class="cta">
-        <a class="btn primary" href="vision.html">Vision & Research →</a>
+        <a class="btn primary" href="vision.html">Vision & functional criteria →</a>
         <a class="btn" href="contact.html">Contact</a>
       </div>
 
       <div class="grid">
         <div class="card">
           <h3>Persistent memory</h3>
-          <p>Beyond single interactions: durable state, knowledge, and experience.</p>
+          <p>Durable state and knowledge across projects, not limited to a single session.</p>
         </div>
         <div class="card">
           <h3>World models</h3>
-          <p>Internal representations to reason beyond immediate input.</p>
+          <p>Internal representations enabling reasoning beyond immediate input.</p>
         </div>
         <div class="card">
-          <h3>Long-horizon goals</h3>
-          <p>Multi-goal reasoning across extended and evolving time horizons.</p>
+          <h3>Multi-goal reasoning</h3>
+          <p>Structured planning and prioritization over long and evolving timelines.</p>
         </div>
       </div>
 
       <div class="section">
         <h2>Positioning</h2>
-        <p class="lead" style="margin:0;">
-          L-TOPIC does not claim to be an AGI. It investigates AGI-like functional properties
-          through an incremental, research-oriented approach.
+        <p class="fine">
+          L-TOPIC does not claim to be an Artificial General Intelligence.
+          It is built as an <strong>AGI-like functional system</strong>,
+          focused on measurable capabilities, architectural clarity,
+          and real-world usability.
         </p>
       </div>
 
-      <div class="footer">© L-TOPIC — Research project</div>
+      <div class="footer">
+        <span>© L-TOPIC — Cognitive AI platform</span>
+        <span>
+          <a href="vision.html">Vision</a> ·
+          <a href="contact.html">Contact</a>
+        </span>
+      </div>
+
     </div>
   </div>
 </body>
 </html>
+
