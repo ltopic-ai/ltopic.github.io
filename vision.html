@@ -1,91 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>L-TOPIC — Vision & Research</title>
+
+  <style>
+    :root{
+      --bg:#0b0d12;
+      --panel:#111522;
+      --text:#e8ecf3;
+      --muted:#aab3c5;
+      --line:#20263a;
+      --accent:#7aa2ff;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:radial-gradient(1200px 600px at 20% -10%, #1a2140 0%, var(--bg) 60%);
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      line-height:1.6;
+    }
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:980px; margin:0 auto; padding:28px 18px 60px}
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between;
+      gap:16px; padding:14px 16px;
+      background:rgba(17,21,34,.65); border:1px solid var(--line);
+      border-radius:14px; backdrop-filter: blur(8px);
+    }
+    .brand{display:flex; align-items:center; gap:12px}
+    .brand img{height:34px}
+    .nav a{margin-left:14px; color:var(--muted)}
+    .nav a:hover{color:var(--text)}
+    .page{padding:28px 8px 0}
+    h1{font-size:34px; letter-spacing:-0.02em; margin:0 0 12px}
+    h2{margin:22px 0 10px; font-size:20px}
+    p{color:var(--muted); margin:0 0 12px}
+    .panel{
+      margin-top:16px;
+      padding:16px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(17,21,34,.55);
+    }
+    .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:14px}
+    .card{
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--line);
+      background:rgba(17,21,34,.55);
+    }
+    .card h3{margin:0 0 6px; font-size:16px; color:var(--text)}
+    .card p{margin:0; font-size:14px}
+    ul{margin:8px 0 0 18px; color:var(--muted)}
+    .footer{margin-top:34px; color:var(--muted); font-size:13px}
+    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+  </style>
 </head>
 
 <body>
+  <div class="container">
+    <div class="topbar">
+      <div class="brand">
+        <img src="assets/ltopic.svg" alt="L-TOPIC">
+        <strong>L-TOPIC</strong>
+      </div>
+      <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="vision.html">Vision</a>
+        <a href="contact.html">Contact</a>
+      </div>
+    </div>
 
-<nav style="text-align:center; margin:20px 0;">
-  <a href="index.html">Home</a> |
-  <a href="vision.html">Vision & Research</a> |
-  <a href="contact.html">Contact</a>
-</nav>
+    <div class="page">
+      <h1>Vision & research directions</h1>
 
-<main style="max-width:900px; margin:0 auto; font-family:Arial, sans-serif; line-height:1.6;">
+      <div class="panel">
+        <h2 style="margin-top:0;">Observation</h2>
+        <p>
+          Many contemporary AI systems rely on short-lived, stateless interactions.
+          Despite strong short-term performance, they often struggle to maintain a coherent
+          internal state, accumulate durable experience, or reason across extended time horizons.
+        </p>
+        <p>
+          This limitation constrains long-term, goal-directed behavior and prevents the
+          construction of progressively structured internal representations of the world.
+        </p>
+      </div>
 
-  <h1>Vision and Research Directions</h1>
+      <div class="panel">
+        <h2 style="margin-top:0;">Vision</h2>
+        <p>
+          L-TOPIC explores cognitive architectures capable of maintaining persistent internal state,
+          integrating experience over time, and reasoning across multiple, evolving objectives.
+        </p>
+        <p>
+          The project follows a progressive, experimental research methodology, aiming to understand
+          how AGI-like functional properties may emerge from clearly identified architectural components,
+          without premature claims.
+        </p>
+      </div>
 
-  <h2>Observation</h2>
-  <p>
-    A large portion of current artificial intelligence systems relies on
-    short-term, stateless interactions. Despite impressive capabilities,
-    these systems struggle to maintain a coherent internal state, accumulate
-    durable experience, and reason over extended time horizons.
-  </p>
+      <h2>Research directions</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>1. Persistent memory</h3>
+          <p>Mechanisms to preserve knowledge, state, and experience beyond single interactions.</p>
+        </div>
+        <div class="card">
+          <h3>2. Internal world models</h3>
+          <p>Structured internal representations to reason beyond immediate input.</p>
+        </div>
+        <div class="card">
+          <h3>3. Long-horizon reasoning</h3>
+          <p>Planning and reasoning across extended time horizons with multiple objectives.</p>
+        </div>
+        <div class="card">
+          <h3>4. Cognitive continuity</h3>
+          <p>Maintaining internal coherence as context, objectives, and knowledge evolve.</p>
+        </div>
+      </div>
 
-  <p>
-    This limitation restricts the emergence of long-term goal-oriented
-    behavior and the ability to build a progressively structured
-    understanding of the world.
-  </p>
+      <div class="panel">
+        <h2 style="margin-top:0;">Positioning</h2>
+        <p>
+          L-TOPIC does not position itself as a completed Artificial General Intelligence.
+          It adopts a cautious, functional approach focused on exploring, measuring, and understanding
+          AGI-related properties without marketing-driven claims.
+        </p>
+        <p style="margin-bottom:0;">
+          The project emphasizes conceptual clarity, reproducibility, and incremental evaluation of hypotheses.
+        </p>
+      </div>
 
-  <h2>Vision</h2>
-  <p>
-    L-TOPIC explores an alternative path: cognitive architectures capable of
-    maintaining a persistent internal state, integrating experience over
-    time, and reasoning about evolving, multi-level objectives.
-  </p>
-
-  <p>
-    The project follows a progressive and experimental research approach,
-    aiming to understand how AGI-like functional properties may emerge from
-    clearly identified conceptual building blocks, without premature claims.
-  </p>
-
-  <h2>Research Axes</h2>
-
-  <h3>1. Persistent Memory</h3>
-  <p>
-    Investigation of memory mechanisms that extend beyond single interactions,
-    enabling the system to retain knowledge, states, and experiences usable
-    over long periods.
-  </p>
-
-  <h3>2. Internal World Models</h3>
-  <p>
-    Exploration of internal representations that allow the system to build a
-    structured model of its environment, past actions, and their consequences.
-  </p>
-
-  <h3>3. Long-Horizon Reasoning</h3>
-  <p>
-    Study of planning and reasoning mechanisms capable of integrating
-    multiple, sometimes competing objectives across extended time horizons.
-  </p>
-
-  <h3>4. Cognitive Continuity and Coherence</h3>
-  <p>
-    Research into the stability of the system’s cognitive identity and its
-    ability to maintain internal coherence as context, objectives, and
-    knowledge evolve.
-  </p>
-
-  <h2>Positioning</h2>
-  <p>
-    L-TOPIC does not position itself as a completed Artificial General
-    Intelligence. The project adopts a cautious, functional approach focused
-    on exploring, measuring, and understanding properties associated with AGI,
-    without excessive claims or marketing narratives.
-  </p>
-
-  <p>
-    The emphasis is placed on conceptual clarity, reproducibility, and
-    incremental evaluation of hypotheses.
-  </p>
-
-</main>
-
+      <div class="footer">© L-TOPIC — Vision & Research</div>
+    </div>
+  </div>
 </body>
 </html>
+
