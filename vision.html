@@ -2,143 +2,191 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>L-TOPIC — Vision & Research</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>L-TOPIC — Vision</title>
 
   <style>
-    :root{
-      --bg:#0b0d12;
-      --panel:#111522;
-      --text:#e8ecf3;
-      --muted:#aab3c5;
-      --line:#20263a;
-      --accent:#7aa2ff;
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
+      background: #1f2329; /* anthracite clair */
+      color: #e6e8eb;
+      line-height: 1.6;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      background:radial-gradient(1200px 600px at 20% -10%, #1a2140 0%, var(--bg) 60%);
-      color:var(--text);
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      line-height:1.6;
+
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 48px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
     }
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{max-width:980px; margin:0 auto; padding:28px 18px 60px}
-    .topbar{
-      display:flex; align-items:center; justify-content:space-between;
-      gap:16px; padding:14px 16px;
-      background:rgba(17,21,34,.65); border:1px solid var(--line);
-      border-radius:14px; backdrop-filter: blur(8px);
+
+    header img {
+      height: 36px;
     }
-    .brand{display:flex; align-items:center; gap:12px}
-    .brand img{height:34px}
-    .nav a{margin-left:14px; color:var(--muted)}
-    .nav a:hover{color:var(--text)}
-    .page{padding:28px 8px 0}
-    h1{font-size:34px; letter-spacing:-0.02em; margin:0 0 12px}
-    h2{margin:22px 0 10px; font-size:20px}
-    p{color:var(--muted); margin:0 0 12px}
-    .panel{
-      margin-top:16px;
-      padding:16px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(17,21,34,.55);
+
+    nav a {
+      color: #cfd3da;
+      text-decoration: none;
+      margin-left: 24px;
+      font-size: 14px;
     }
-    .grid{display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin-top:14px}
-    .card{
-      padding:14px;
-      border-radius:14px;
-      border:1px solid var(--line);
-      background:rgba(17,21,34,.55);
+
+    nav a:hover {
+      color: #ffffff;
     }
-    .card h3{margin:0 0 6px; font-size:16px; color:var(--text)}
-    .card p{margin:0; font-size:14px}
-    ul{margin:8px 0 0 18px; color:var(--muted)}
-    .footer{margin-top:34px; color:var(--muted); font-size:13px}
-    @media (max-width:900px){ .grid{grid-template-columns:1fr} }
+
+    main {
+      max-width: 980px;
+      margin: 80px auto;
+      padding: 0 32px;
+    }
+
+    h1 {
+      font-size: 44px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+    }
+
+    h2 {
+      font-size: 26px;
+      margin-top: 64px;
+      margin-bottom: 16px;
+    }
+
+    p {
+      font-size: 18px;
+      color: #cfd3da;
+      max-width: 880px;
+    }
+
+    .pillars {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      margin-top: 32px;
+    }
+
+    .pillar {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .pillar h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 18px;
+    }
+
+    footer {
+      margin-top: 120px;
+      padding: 32px;
+      text-align: center;
+      font-size: 13px;
+      color: #9aa0a6;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <div class="topbar">
-      <div class="brand">
-        <img src="assets/ltopic.svg" alt="L-TOPIC">
-        <strong>L-TOPIC</strong>
-      </div>
-      <div class="nav">
-        <a href="index.html">Home</a>
-        <a href="vision.html">Vision</a>
-        <a href="contact.html">Contact</a>
-      </div>
+
+<header>
+  <img src="assets/logo_LTOPIC.svg" alt="L-TOPIC logo">
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="vision.html">Vision</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+</header>
+
+<main>
+
+  <h1>Vision</h1>
+
+  <p>
+    L-TOPIC is built around a simple conviction:  
+    intelligent systems become truly useful only when they can reason,
+    remember, and act coherently over extended periods of time.
+  </p>
+
+  <p>
+    Rather than chasing abstract definitions of Artificial General Intelligence,
+    L-TOPIC focuses on **functional intelligence** — measurable, deployable,
+    and grounded in real-world constraints.
+  </p>
+
+  <h2>Beyond the AGI label</h2>
+
+  <p>
+    There is currently no scientific consensus on what AGI truly is.
+    Many definitions rely on philosophical or speculative criteria.
+  </p>
+
+  <p>
+    L-TOPIC adopts a pragmatic stance:  
+    if an intelligent system exhibits the core functional properties
+    commonly associated with AGI, then its value lies in what it can do —
+    not in how it is labeled.
+  </p>
+
+  <h2>The three functional pillars</h2>
+
+  <p>
+    L-TOPIC is structured around three foundational capabilities
+    frequently cited as essential for general intelligence.
+  </p>
+
+  <div class="pillars">
+    <div class="pillar">
+      <h3>Persistent memory</h3>
+      <p>
+        The ability to maintain durable internal state across time,
+        projects, and interactions — beyond single sessions or prompts.
+      </p>
     </div>
 
-    <div class="page">
-      <h1>Vision & research directions</h1>
+    <div class="pillar">
+      <h3>World models</h3>
+      <p>
+        Internal representations of the environment, tasks, and agents,
+        enabling reasoning beyond immediate input.
+      </p>
+    </div>
 
-      <div class="panel">
-        <h2 style="margin-top:0;">Observation</h2>
-        <p>
-          Many contemporary AI systems rely on short-lived, stateless interactions.
-          Despite strong short-term performance, they often struggle to maintain a coherent
-          internal state, accumulate durable experience, or reason across extended time horizons.
-        </p>
-        <p>
-          This limitation constrains long-term, goal-directed behavior and prevents the
-          construction of progressively structured internal representations of the world.
-        </p>
-      </div>
-
-      <div class="panel">
-        <h2 style="margin-top:0;">Vision</h2>
-        <p>
-          L-TOPIC explores cognitive architectures capable of maintaining persistent internal state,
-          integrating experience over time, and reasoning across multiple, evolving objectives.
-        </p>
-        <p>
-          The project follows a progressive, experimental research methodology, aiming to understand
-          how AGI-like functional properties may emerge from clearly identified architectural components,
-          without premature claims.
-        </p>
-      </div>
-
-      <h2>Research directions</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>1. Persistent memory</h3>
-          <p>Mechanisms to preserve knowledge, state, and experience beyond single interactions.</p>
-        </div>
-        <div class="card">
-          <h3>2. Internal world models</h3>
-          <p>Structured internal representations to reason beyond immediate input.</p>
-        </div>
-        <div class="card">
-          <h3>3. Long-horizon reasoning</h3>
-          <p>Planning and reasoning across extended time horizons with multiple objectives.</p>
-        </div>
-        <div class="card">
-          <h3>4. Cognitive continuity</h3>
-          <p>Maintaining internal coherence as context, objectives, and knowledge evolve.</p>
-        </div>
-      </div>
-
-      <div class="panel">
-        <h2 style="margin-top:0;">Positioning</h2>
-        <p>
-          L-TOPIC does not position itself as a completed Artificial General Intelligence.
-          It adopts a cautious, functional approach focused on exploring, measuring, and understanding
-          AGI-related properties without marketing-driven claims.
-        </p>
-        <p style="margin-bottom:0;">
-          The project emphasizes conceptual clarity, reproducibility, and incremental evaluation of hypotheses.
-        </p>
-      </div>
-
-      <div class="footer">© L-TOPIC — Vision & Research</div>
+    <div class="pillar">
+      <h3>Long-horizon goal reasoning</h3>
+      <p>
+        Planning, prioritization, and decision-making across evolving
+        timelines and multiple objectives.
+      </p>
     </div>
   </div>
+
+  <h2>Positioning</h2>
+
+  <p>
+    L-TOPIC does not claim to be an Artificial General Intelligence.
+    It is an **AGI-like functional system**, designed with architectural clarity,
+    incremental validation, and practical deployment in mind.
+  </p>
+
+  <p>
+    Research informs the platform — but product utility drives it.
+    The goal is not to impress with claims, but to deliver systems
+    that remain coherent, adaptive, and reliable over time.
+  </p>
+
+</main>
+
+<footer>
+  © L-TOPIC — Cognitive AI platform
+</footer>
+
 </body>
 </html>
 
