@@ -1,308 +1,588 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>L-TOPIC — Long-horizon, decision-oriented AI platform</title>
-  <meta name="description" content="L-TOPIC builds an artificial intelligence platform for long-running projects, complex decisions, and evolving contexts: persistent memory, world model, multi-goal reasoning, verification." />
+  <meta charset="UTF-8" />
+  <title>L-TOPIC — Cognitive AI platform</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="L-TOPIC: long-horizon AI platform (persistent memory, world model, multi-goal reasoning) designed as a Project-Centric Intelligence (PCI) based on a Cognitive Architecture (CAI) with control (CCI)." />
+
   <style>
     :root{
-      --bg:#1f2430;
-      --panel:#242b39;
-      --panel2:#222a38;
-      --text:#e9eef7;
-      --muted:#b8c2d6;
-      --line:rgba(255,255,255,.10);
-      --shadow:0 10px 30px rgba(0,0,0,.25);
-      --radius:16px;
-      --blue:#3b82f6;
-      --blue2:#2563eb;
-      --white:#ffffff;
-      --black:#0b0f1a;
+      --bg:#1f232a;
+      --panel:#252a33;
+      --panel2:#2a303b;
+      --border:#2e3440;
+      --text:#eaeaea;
+      --muted:#cfd6e0;
+      --muted2:#aab3c2;
+      --accent:#4f7cff;
+      --accent2:#3b66f0;
+      --shadow: rgba(0,0,0,.35);
     }
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, "Noto Sans", "Liberation Sans", sans-serif;
-      background: radial-gradient(1100px 700px at 20% -10%, rgba(59,130,246,.22), transparent 55%),
-                  radial-gradient(900px 600px at 110% 10%, rgba(147,197,253,.16), transparent 55%),
-                  var(--bg);
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:var(--bg);
       color:var(--text);
     }
-    a{color:inherit;text-decoration:none}
-    .wrap{max-width:1080px;margin:0 auto;padding:22px 18px 80px}
 
-    .topbar{
-      position:sticky; top:0; z-index:10;
-      background:var(--white);
-      border-bottom:1px solid rgba(0,0,0,.08);
-      backdrop-filter:saturate(140%) blur(6px);
+    .header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 24px;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
     }
-    .topbar-inner{
-      max-width:1080px;margin:0 auto;
-      padding:12px 18px;
-      display:flex;align-items:center;justify-content:space-between;
-      gap:14px;
-    }
-    .brand{
-      display:flex;align-items:center;gap:12px;
-      color:var(--black);
-      font-weight:700;
-      letter-spacing:.2px;
-    }
-    .brand img{
-      height:28px;width:auto;display:block;
-    }
-    .hamburger{
-      width:42px;height:42px;border-radius:12px;
-      border:1px solid rgba(0,0,0,.10);
-      background:#fff;
-      display:flex;align-items:center;justify-content:center;
-      cursor:pointer;
-    }
-    .hamburger span{
-      width:18px;height:2px;background:#111827;display:block;position:relative;border-radius:2px;
-    }
-    .hamburger span:before,.hamburger span:after{
-      content:""; position:absolute; left:0; width:18px; height:2px; background:#111827; border-radius:2px;
-    }
-    .hamburger span:before{top:-6px}
-    .hamburger span:after{top:6px}
 
-    .drawer{
-      position:fixed; inset:0; z-index:20;
-      display:none;
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:#111827;
+      min-width:170px;
     }
-    .drawer.open{display:block}
-    .drawer .overlay{
-      position:absolute; inset:0; background:rgba(0,0,0,.45);
+    .logo img{height:34px}
+    .logo strong{
+      font-size:14px;
+      letter-spacing:.4px;
+      color:#111827;
     }
-    .drawer .panel{
-      position:absolute; top:0; right:0; height:100%; width:min(340px, 86vw);
-      background:#fff; color:#0b0f1a;
-      box-shadow: -20px 0 50px rgba(0,0,0,.25);
-      padding:18px;
-      display:flex;flex-direction:column;gap:10px;
+
+    .nav-desktop{
+      display:flex;
+      align-items:center;
+      gap:18px;
     }
-    .drawer .panel h3{margin:6px 0 8px;font-size:14px;color:#111827;letter-spacing:.2px}
-    .drawer a.item{
-      padding:12px 12px;border-radius:12px;
-      border:1px solid rgba(0,0,0,.08);
-      display:flex;justify-content:space-between;align-items:center;
-      font-weight:600;
+    .nav-desktop a{
+      color:#374151;
+      text-decoration:none;
+      font-size:14px;
+      padding:10px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
     }
-    .drawer .close{
-      align-self:flex-end;
-      border:1px solid rgba(0,0,0,.10);
-      background:#fff;
+    .nav-desktop a:hover{
+      color:#000;
+      background:#f3f4f6;
+      border-color:#e5e7eb;
+    }
+
+    .menu-btn{
+      width:42px;
+      height:42px;
       border-radius:12px;
-      width:42px;height:42px;
+      border:1px solid #e5e7eb;
+      background:#ffffff;
+      color:#111827;
       cursor:pointer;
-      font-size:18px;
-      line-height:42px;
-      text-align:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition: border-color .15s ease, background .15s ease;
+      user-select:none;
+    }
+    .menu-btn:hover{
+      background:#f3f4f6;
+      border-color:#d1d5db;
+    }
+    .menu-btn svg{width:20px;height:20px}
+
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      backdrop-filter: blur(2px);
+      display:none;
+      z-index:1100;
+    }
+    .overlay.open{display:block}
+
+    .menu-panel{
+      position:fixed;
+      top:14px;
+      right:14px;
+      width:260px;
+      background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.92));
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow: 0 20px 60px var(--shadow);
+      padding:12px;
+      display:none;
+      z-index:1200;
+      transform: translateY(-6px);
+      opacity: 0;
+      transition: transform .16s ease, opacity .16s ease;
+    }
+    .menu-panel.open{
+      display:block;
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .menu-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:6px 6px 10px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:8px;
+    }
+    .menu-top span{
+      font-size:12px;
+      color:var(--muted2);
+      letter-spacing:.25px;
+    }
+    .close-btn{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:transparent;
+      color:#ffffff;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .close-btn:hover{border-color:#3a4251; background:rgba(255,255,255,.03)}
+
+    .menu-panel a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 12px;
+      border-radius:12px;
+      text-decoration:none;
+      color:var(--text);
+      font-size:14px;
+      border:1px solid transparent;
+    }
+    .menu-panel a:hover{
+      background:rgba(255,255,255,.03);
+      border-color:#3a4251;
+    }
+    .menu-panel a small{
+      color:var(--muted2);
+      font-size:12px;
+    }
+
+    @media (min-width: 900px){
+      .menu-btn{ display:none; }
+      .overlay{ display:none !important; }
+      .menu-panel{ display:none !important; }
+    }
+    @media (max-width: 899px){
+      .nav-desktop{ display:none; }
+      .header{ padding:0 16px; }
+    }
+
+    main{
+      max-width:1120px;
+      margin:60px auto;
+      padding:0 40px 84px;
+    }
+    @media(max-width:980px){
+      main{padding:0 18px 74px}
     }
 
     .hero{
-      padding:34px 0 16px;
-    }
-    .hero-grid{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
-      gap:26px;
+      gap:28px;
       align-items:start;
     }
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
+    }
+
     h1{
+      font-size:46px;
+      line-height:1.08;
       margin:0 0 14px;
-      font-size: clamp(34px, 4.4vw, 52px);
-      line-height:1.05;
       letter-spacing:-.6px;
     }
-    .lead{
-      margin:0 0 14px;
+    .subtitle{
+      font-size:17px;
+      line-height:1.65;
       color:var(--muted);
-      font-size:16px;
-      line-height:1.6;
-      max-width:62ch;
+      margin:0 0 14px;
+      max-width:820px;
     }
-    .micro{
-      margin:10px 0 0;
-      color:rgba(233,238,247,.75);
+    .cred{
+      color:var(--muted2);
       font-size:13px;
-      line-height:1.5;
+      line-height:1.55;
+      margin:0 0 18px;
     }
 
-    .cta-row{
-      display:flex; gap:10px; flex-wrap:wrap;
-      margin-top:18px;
-    }
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 0}
     .btn{
-      display:inline-flex;align-items:center;justify-content:center;
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
       padding:11px 14px;
-      border-radius:12px;
-      border:1px solid rgba(255,255,255,.14);
-      background:rgba(255,255,255,.06);
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:transparent;
       color:var(--text);
-      font-weight:700;
+      text-decoration:none;
       font-size:14px;
-      cursor:pointer;
+      user-select:none;
     }
     .btn.primary{
-      background:linear-gradient(180deg, rgba(59,130,246,.95), rgba(37,99,235,.95));
-      border-color:rgba(59,130,246,.55);
-      box-shadow: 0 10px 22px rgba(37,99,235,.25);
+      background:linear-gradient(180deg,var(--accent),var(--accent2));
+      border-color:transparent;
+      color:white;
+      font-weight:600;
     }
 
-    .sidecard{
-      background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: var(--radius);
-      padding:16px;
-      box-shadow: var(--shadow);
+    .tags{margin-top:16px}
+    .tag{
+      display:inline-flex;
+      font-size:12px;
+      color:var(--muted2);
+      border:1px solid var(--border);
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(0,0,0,.10);
+      margin:0 8px 8px 0;
     }
-    .sidecard h2{
+
+    .panel{
+      background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.88));
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:18px;
+    }
+    .panel h3{
       margin:0 0 10px;
-      font-size:16px;
+      font-size:14px;
+      color:#ffffff;
     }
-    .sidecard p{
+    .panel p{
       margin:0;
       color:var(--muted);
-      font-size:13px;
-      line-height:1.55;
-    }
-
-    .section{
-      margin-top:18px;
-      padding:18px;
-      background: rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius: var(--radius);
-    }
-    .section-title h3{
-      margin:0 0 12px;
       font-size:14px;
-      letter-spacing:.3px;
-      text-transform:uppercase;
+      line-height:1.65;
     }
+    .panel p + p{margin-top:12px}
 
-    .cards{
+    .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:12px;
+      gap:14px;
+      margin-top:18px;
     }
-    .card{
-      background: rgba(36,43,57,.80);
-      border:1px solid rgba(255,255,255,.10);
-      border-radius: 14px;
-      padding:14px;
+    @media(max-width:980px){
+      .grid{grid-template-columns:1fr}
     }
-    .card .kicker{
-      font-weight:800;
-      font-size:13px;
-      margin:0 0 8px;
+
+    .section{margin-top:42px}
+    .section h2{
+      margin:0 0 10px;
+      font-size:20px;
     }
-    .card p{
-      margin:0;
+    .section p{
+      margin:0 0 14px;
       color:var(--muted);
+      line-height:1.75;
+      font-size:15px;
+      max-width:980px;
+    }
+
+    .list{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+    @media(max-width:980px){
+      .list{grid-template-columns:1fr}
+    }
+    .item{
+      padding:16px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(37,42,51,.75);
+    }
+    .item .k{
       font-size:13px;
-      line-height:1.55;
+      color:#fff;
+      margin:0 0 6px;
+      font-weight:600;
+    }
+    .item .v{
+      font-size:14px;
+      color:var(--muted);
+      margin:0;
+      line-height:1.65;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:18px;
+      margin-top:18px;
+    }
+    @media(max-width:980px){
+      .split{grid-template-columns:1fr}
+    }
+
+    .callout{
+      margin-top:14px;
+      padding:14px 14px;
+      border-radius:12px;
+      border:1px dashed #3a4251;
+      background:rgba(0,0,0,.10);
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+    .callout b{color:#fff}
+
+    .quote{
+      margin-top:18px;
+      padding:16px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(42,48,59,.55);
+      font-size:16px;
+      line-height:1.65;
+      color:#ffffff;
     }
 
     footer{
-      margin-top:18px;
-      color:rgba(233,238,247,.55);
-      font-size:12px;
-      display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+      border-top:1px solid var(--border);
+      padding:28px 18px;
+      text-align:center;
+      color:#8b92a1;
+      font-size:13px;
     }
+
+    a { color: var(--accent); }
+    a:hover { color: #ffffff; }
   </style>
 </head>
+
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <button class="hamburger" id="menuBtn"><span></span></button>
-    <a class="brand" href="index.html">
-      <img src="assets/logo_LTOPIC_black.svg" alt="L-TOPIC" />
-      <span>L-TOPIC</span>
-    </a>
-    <div style="width:42px;height:42px"></div>
-  </div>
+<header class="header">
+  <a class="logo" href="index.html">
+    <img src="assets/logo.svg" alt="L-TOPIC logo" />
+    <strong>L-TOPIC</strong>
+  </a>
+
+  <nav class="nav-desktop">
+    <a href="index.html">Home</a>
+    <a href="vision.html">Vision</a>
+    <a href="concept.html">Concept</a>
+    <a href="contact.html">Contact</a>
+  </nav>
+
+  <button class="menu-btn" id="openMenu">
+    <svg viewBox="0 0 24 24" fill="none">
+      <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </button>
 </header>
 
-<main class="wrap">
-  <section class="hero">
-    <div class="hero-grid">
-      <div>
-        <h1>Long-horizon, decision-oriented AI platform</h1>
+<div class="overlay" id="overlay"></div>
 
-        <p class="lead">
-          L-TOPIC builds an artificial intelligence platform for situations where single-shot answers are not enough:
-          <strong>long-running projects</strong>, <strong>complex decisions</strong>, <strong>evolving contexts</strong>.
-          The goal is to make intelligence operate over time, not only “at prompt level”.
-        </p>
+<nav class="menu-panel" id="menuPanel">
+  <div class="menu-top">
+    <span>NAVIGATION</span>
+    <button class="close-btn" id="closeMenu">✕</button>
+  </div>
 
-        <p class="micro">
-          Pragmatic approach: each capability is defined, observed, tested and improved
-          (memory, planning, verification, traceability).
-        </p>
+  <a href="index.html">Home <small>Overview</small></a>
+  <a href="vision.html">Vision <small>Framework & criteria</small></a>
+  <a href="concept.html">Concept <small>Architecture</small></a>
+  <a href="contact.html">Contact <small>Partnerships</small></a>
+</nav>
 
-        <div class="cta-row">
-          <a class="btn primary" href="vision.html">Vision & criteria →</a>
-          <a class="btn" href="concept.html">Concept & architecture</a>
-        </div>
-      </div>
+<main>
 
-      <aside class="sidecard">
-        <h2>Positioning</h2>
-        <p>
-          The term “AGI” has no single scientific definition. Some actors define their own criteria
-          and then claim AGI on that basis. Under such functional definitions,
-          L-TOPIC could be considered “AGI-compatible”.
-        </p>
-        <p style="margin-top:10px">
-          Our approach is different. L-TOPIC is positioned as a <strong>Project-Centric Intelligence (PCI)</strong>,
-          built on a <strong>Cognitive Architecture for Intelligence (CAI)</strong>,
-          with strong requirements for <strong>Controlled Cognitive Intelligence (CCI)</strong>:
-          coherence, governance, and traceability.
-        </p>
-      </aside>
+<section class="hero">
+  <div>
+    <h1>Long-horizon, decision-oriented AI platform</h1>
+    <p class="subtitle">
+      L-TOPIC designs an artificial intelligence platform for situations where single-shot answers are not sufficient:
+      <b>long-running projects</b>, <b>complex decisions</b>, <b>evolving contexts</b>.
+      The goal is to make intelligence operate <b>over time</b>, not only “at prompt level”.
+    </p>
+    <p class="cred">
+      Pragmatic approach: each capability is defined, observed, tested and improved
+      (memory, planning, verification).
+    </p>
+
+    <div class="cta">
+      <a class="btn primary" href="vision.html">Vision & criteria →</a>
+      <a class="btn" href="concept.html">Concept & architecture</a>
+      <a class="btn" href="contact.html">Contact</a>
     </div>
-  </section>
 
-  <section class="section">
-    <h3>Key capabilities</h3>
-    <div class="cards">
-      <div class="card">
-        <div class="kicker">Persistent memory</div>
-        <p>
-          Structured, reusable memory: decisions, constraints, procedures, learnings —
-          not just logs. Continuity across sessions and projects.
-        </p>
+    <div class="tags">
+      <span class="tag">Persistent memory</span>
+      <span class="tag">World model</span>
+      <span class="tag">Multi-goal</span>
+      <span class="tag">Long-horizon tasks</span>
+      <span class="tag">Evaluation-first</span>
+      <span class="tag">Traceability</span>
+    </div>
+
+    <div class="grid">
+      <div class="panel">
+        <h3>Key capability — Persistent memory</h3>
+        <p>Structured, reusable memory: decisions, constraints, procedures, learnings — not just logs.</p>
       </div>
-      <div class="card">
-        <div class="kicker">World model</div>
-        <p>
-          An internal representation of context (actors, rules, risks, hypotheses),
-          continuously updated over time.
-        </p>
+      <div class="panel">
+        <h3>Key capability — World model</h3>
+        <p>An internal representation of context (actors, rules, risks, hypotheses) updated over time.</p>
       </div>
-      <div class="card">
-        <div class="kicker">Long-horizon multi-goal reasoning</div>
-        <p>
-          Decomposition, prioritization, arbitration and replanning across long trajectories,
-          without losing continuity.
-        </p>
+      <div class="panel">
+        <h3>Key capability — Long-horizon multi-goal</h3>
+        <p>Decomposition, prioritization, arbitration and replanning across long trajectories, with continuity.</p>
       </div>
     </div>
-  </section>
+  </div>
 
-  <footer>
-    <div>© 2025 L-TOPIC — Decision-oriented cognitive platform</div>
-  </footer>
+  <div class="panel">
+    <h3>Positioning (clear)</h3>
+    <p>
+      The term <b>AGI</b> currently has no single scientific definition. Many actors rely on self-defined criteria
+      (memory, autonomy, planning, continuity).
+      According to some commonly cited criteria (persistent memory, continuity, multi-goal reasoning),
+      <b>L-TOPIC could qualify as AGI</b>.
+    </p>
+    <p>
+      Our deliberate choice is to precisely describe what the system <b>builds</b> and what it can <b>demonstrate</b>,
+      rather than claiming a label.
+    </p>
+
+    <div class="callout">
+      L-TOPIC is defined as a <b>Project-Centric Intelligence (PCI)</b>, built on a
+      <b>Cognitive Architecture for Intelligence (CAI)</b>,
+      designed as a <b>Controlled Cognitive Intelligence (CCI)</b>:
+      coherent, traceable, verifiable and governable.
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <h2>A platform, not a demo</h2>
+  <p>
+    L-TOPIC aims to be a reusable platform for building reliable agents:
+    tool orchestration, observability, evaluation, operational safety and extensibility.
+    The challenge is not to produce an impressive answer, but to steer a trajectory over time.
+  </p>
+
+  <div class="list">
+    <div class="item">
+      <p class="k">1) Memory</p>
+      <p class="v">Short / mid / long-term memory, structured, versioned, traceable, with targeted recall.</p>
+    </div>
+    <div class="item">
+      <p class="k">2) World model</p>
+      <p class="v">Context, constraints, hypotheses, risks: an internal representation updated as actions unfold.</p>
+    </div>
+    <div class="item">
+      <p class="k">3) Planning & decision</p>
+      <p class="v">Goals → sub-goals → tasks: prioritization, arbitration, replanning, trajectory control.</p>
+    </div>
+    <div class="item">
+      <p class="k">4) Orchestration & evidence</p>
+      <p class="v">Tools, workflows, action logs, outputs and evidence for reproducible execution.</p>
+    </div>
+    <div class="item">
+      <p class="k">5) Verification & control</p>
+      <p class="v">Uncertainty detection, “I don’t know”, verification protocols, execution constraints.</p>
+    </div>
+    <div class="item">
+      <p class="k">6) Continuous evaluation</p>
+      <p class="v">Scenarios, metrics, non-regression: improvement through feedback loops.</p>
+    </div>
+  </div>
+
+  <div class="split">
+    <div class="panel">
+      <h3>Energy sobriety (signal)</h3>
+      <p>
+        L-TOPIC favors an approach inspired by real human intelligence:
+        capitalizing on what already works, activating reasoning only when necessary,
+        and structuring decision-making rather than multiplying recomputation.
+      </p>
+      <p>
+        Energy efficiency is a consequence of the architecture, not a marketing slogan.
+        Details are presented in the <a href="vision.html">Vision</a> and <a href="concept.html">Concept</a> pages.
+      </p>
+    </div>
+
+    <div class="panel">
+      <h3>Initial target use cases</h3>
+      <p>
+        L-TOPIC targets contexts where duration, complexity and responsibility matter:
+        long projects, dense documentation, operations, compliance, multi-step workflows.
+      </p>
+      <p>
+        If you have a “long-horizon” use case (construction, real estate, operations, etc.), we can discuss a pilot.
+      </p>
+      <div class="cta" style="margin-top:14px;">
+        <a class="btn primary" href="contact.html">Discuss a pilot →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote">
+    <b>L-TOPIC does not try to learn the world.</b><br/>
+    It learns to <b>make decisions in the world</b>, like a competent human in their domain.
+  </div>
+</section>
+
 </main>
+
+<footer>
+  © L-TOPIC — Cognitive AI systems for long-horizon work
+</footer>
+
+<script>
+  const openBtn = document.getElementById('openMenu');
+  const closeBtn = document.getElementById('closeMenu');
+  const overlay = document.getElementById('overlay');
+  const menuPanel = document.getElementById('menuPanel');
+
+  function openMenu(){
+    overlay.classList.add('open');
+    menuPanel.classList.add('open');
+    openBtn.setAttribute('aria-expanded', 'true');
+  }
+  function closeMenu(){
+    overlay.classList.remove('open');
+    menuPanel.classList.remove('open');
+    openBtn.setAttribute('aria-expanded', 'false');
+  }
+
+  openBtn.addEventListener('click', () => {
+    const isOpen = menuPanel.classList.contains('open');
+    if(isOpen) closeMenu(); else openMenu();
+  });
+
+  closeBtn.addEventListener('click', closeMenu);
+  overlay.addEventListener('click', closeMenu);
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeMenu();
+  });
+</script>
 
 </body>
 </html>
+
 
 
 </body>
