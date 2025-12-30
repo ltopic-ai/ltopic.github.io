@@ -2,603 +2,546 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>L-TOPIC — Cognitive AI platform</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="L-TOPIC : plateforme d'IA long-horizon (mémoire persistante, world model, multi-objectif) conçue comme une intelligence orientée projet (PCI) basée sur une architecture cognitive (CAI) avec contrôle (CCI)." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>L-TOPIC — Plateforme IA long-horizon, orientée décision</title>
+  <meta name="description" content="L-TOPIC conçoit une plateforme IA long-horizon pour des projets longs, décisions complexes et contextes évolutifs : mémoire persistante, world model, multi-objectif, évaluation-first, traçabilité." />
 
   <style>
     :root{
-      --bg:#1f232a;
-      --panel:#252a33;
-      --panel2:#2a303b;
-      --border:#2e3440;
-      --text:#eaeaea;
-      --muted:#cfd6e0;
-      --muted2:#aab3c2;
-      --accent:#4f7cff;
-      --accent2:#3b66f0;
-      --shadow: rgba(0,0,0,.35);
+      --bg:#151a22;
+      --panel:#1b2230;
+      --panel2:#111722;
+      --text:#eaf0ff;
+      --muted:#a8b3cc;
+      --stroke:rgba(255,255,255,.12);
+      --stroke2:rgba(255,255,255,.08);
+      --accent:#2f6bff;
+      --accent2:#1b4dff;
+      --white:#ffffff;
+      --black:#0b0f14;
+      --radius:18px;
+      --radius2:14px;
+      --shadow: 0 10px 35px rgba(0,0,0,.30);
+      --shadow2: 0 8px 22px rgba(0,0,0,.22);
+      --max:1100px;
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
-      background:var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: radial-gradient(1200px 500px at 18% 10%, rgba(47,107,255,.20), transparent 55%),
+                  radial-gradient(800px 450px at 85% 25%, rgba(47,107,255,.12), transparent 60%),
+                  var(--bg);
       color:var(--text);
+      line-height:1.35;
     }
 
-    /* ===== HEADER (fond blanc) ===== */
-    .header{
+    a{color:inherit; text-decoration:none}
+
+    /* Top bar */
+    .topbar{
       position:sticky;
       top:0;
-      z-index:1000;
-      height:64px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:0 24px;
-      border-bottom:1px solid #e5e7eb;
-      background:#ffffff;
+      z-index:50;
+      background: var(--white);
+      border-bottom: 1px solid rgba(0,0,0,.08);
     }
-
-    .logo{
+    .topbar-inner{
+      max-width: var(--max);
+      margin:0 auto;
+      padding: 12px 16px;
       display:flex;
       align-items:center;
       gap:12px;
-      text-decoration:none;
-      color:#111827;
-      min-width:170px;
-    }
-    .logo img{height:34px}
-    .logo strong{
-      font-size:14px;
-      letter-spacing:.4px;
-      color:#111827;
+      justify-content:space-between;
     }
 
-    /* Desktop nav */
+    .left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width: 220px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      cursor:pointer;
+      user-select:none;
+    }
+
+    .brand img{
+      height:26px;
+      width:auto;
+      display:block;
+    }
+
+    .brand-name{
+      font-weight:700;
+      letter-spacing:.2px;
+      color: var(--black);
+      font-size:14px;
+    }
+
+    .hamburger{
+      width:42px;
+      height:38px;
+      border:1px solid rgba(0,0,0,.12);
+      border-radius:12px;
+      background:#fff;
+      display:grid;
+      place-items:center;
+      cursor:pointer;
+      box-shadow: 0 8px 18px rgba(0,0,0,.08);
+    }
+    .hamburger span{
+      display:block;
+      width:18px;
+      height:2px;
+      background: var(--black);
+      border-radius:2px;
+      position:relative;
+    }
+    .hamburger span::before,
+    .hamburger span::after{
+      content:"";
+      position:absolute;
+      left:0;
+      width:18px;
+      height:2px;
+      background: var(--black);
+      border-radius:2px;
+    }
+    .hamburger span::before{ top:-6px; }
+    .hamburger span::after{ top:6px; }
+
+    .right{
+      display:flex;
+      align-items:center;
+      gap:10px;
+    }
+
     .nav-desktop{
       display:flex;
       align-items:center;
       gap:18px;
+      color: var(--black);
+      font-size:14px;
     }
     .nav-desktop a{
-      color:#374151;
-      text-decoration:none;
-      font-size:14px;
-      padding:10px 10px;
+      padding:8px 10px;
       border-radius:10px;
-      border:1px solid transparent;
+      color: rgba(0,0,0,.78);
     }
     .nav-desktop a:hover{
+      background: rgba(0,0,0,.05);
       color:#000;
-      background:#f3f4f6;
-      border-color:#e5e7eb;
     }
 
-    /* Hamburger button (mobile) */
-    .menu-btn{
-      width:42px;
-      height:42px;
-      border-radius:12px;
-      border:1px solid #e5e7eb;
-      background:#ffffff;
-      color:#111827;
-      cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      transition: border-color .15s ease, background .15s ease;
-      user-select:none;
-    }
-    .menu-btn:hover{
-      background:#f3f4f6;
-      border-color:#d1d5db;
-    }
-    .menu-btn svg{width:20px;height:20px}
-
-    /* ===== MOBILE MENU OVERLAY + PANEL ===== */
-    .overlay{
+    /* Mobile menu (drawer) */
+    .drawer-backdrop{
       position:fixed;
       inset:0;
-      background:rgba(0,0,0,.35);
-      backdrop-filter: blur(2px);
+      background: rgba(0,0,0,.35);
       display:none;
-      z-index:1100;
+      z-index:80;
     }
-    .overlay.open{display:block}
-
-    .menu-panel{
+    .drawer{
       position:fixed;
-      top:14px;
-      right:14px;
-      width:260px;
-      background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.92));
-      border:1px solid var(--border);
-      border-radius:16px;
-      box-shadow: 0 20px 60px var(--shadow);
-      padding:12px;
-      display:none;
-      z-index:1200;
-      transform: translateY(-6px);
-      opacity: 0;
-      transition: transform .16s ease, opacity .16s ease;
+      top:0;
+      left:0;
+      width:min(340px, 88vw);
+      height:100%;
+      background:#fff;
+      color: var(--black);
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      transform: translateX(-110%);
+      transition: transform .22s ease;
+      z-index:90;
+      display:flex;
+      flex-direction:column;
     }
-    .menu-panel.open{
-      display:block;
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    .menu-top{
+    .drawer-header{
+      padding:14px 16px;
+      border-bottom:1px solid rgba(0,0,0,.08);
       display:flex;
       align-items:center;
       justify-content:space-between;
-      padding:6px 6px 10px;
-      border-bottom:1px solid var(--border);
-      margin-bottom:8px;
+      gap:10px;
     }
-    .menu-top span{
-      font-size:12px;
-      color:var(--muted2);
-      letter-spacing:.25px;
-    }
+    .drawer-header .brand-name{font-size:13px}
     .close-btn{
-      width:34px;
-      height:34px;
+      width:42px;
+      height:38px;
+      border:1px solid rgba(0,0,0,.12);
       border-radius:12px;
-      border:1px solid var(--border);
-      background:transparent;
-      color:#ffffff; /* menu sombre */
+      background:#fff;
+      display:grid;
+      place-items:center;
       cursor:pointer;
-      display:flex;
-      align-items:center;
-      justify-content:center;
     }
-    .close-btn:hover{border-color:#3a4251; background:rgba(255,255,255,.03)}
-
-    .menu-panel a{
+    .close-btn:before{
+      content:"✕";
+      font-size:16px;
+      line-height:1;
+      color:#111;
+    }
+    .drawer-links{
+      padding:10px 10px 18px;
       display:flex;
-      align-items:center;
-      justify-content:space-between;
+      flex-direction:column;
+      gap:6px;
+    }
+    .drawer-links a{
       padding:12px 12px;
       border-radius:12px;
-      text-decoration:none;
-      color:var(--text);
-      font-size:14px;
-      border:1px solid transparent;
+      color: rgba(0,0,0,.86);
+      font-weight:600;
     }
-    .menu-panel a:hover{
-      background:rgba(255,255,255,.03);
-      border-color:#3a4251;
+    .drawer-links a:hover{
+      background: rgba(0,0,0,.05);
     }
-    .menu-panel a small{
-      color:var(--muted2);
+    .drawer-footer{
+      margin-top:auto;
+      padding:14px 16px;
+      border-top:1px solid rgba(0,0,0,.08);
+      color: rgba(0,0,0,.55);
       font-size:12px;
     }
 
-    /* ===== Responsive rules ===== */
-    /* Desktop: show links, hide hamburger + mobile menu */
-    @media (min-width: 900px){
-      .menu-btn{ display:none; }
-      .overlay{ display:none !important; }
-      .menu-panel{ display:none !important; }
-    }
-    /* Mobile: hide desktop links, show hamburger */
-    @media (max-width: 899px){
-      .nav-desktop{ display:none; }
-      .header{ padding:0 16px; }
+    .drawer-open .drawer-backdrop{display:block;}
+    .drawer-open .drawer{transform: translateX(0);}
+
+    /* Main container */
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 34px 16px 46px;
     }
 
-    /* ===== LAYOUT ===== */
-    main{
-      max-width:1120px;
-      margin:60px auto;
-      padding:0 40px 84px;
-    }
-    @media(max-width:980px){
-      main{padding:0 18px 74px}
-    }
-
+    /* Hero */
     .hero{
       display:grid;
-      grid-template-columns: 1.15fr .85fr;
-      gap:28px;
+      grid-template-columns: 1.4fr .9fr;
+      gap: 22px;
       align-items:start;
-    }
-    @media(max-width:980px){
-      .hero{grid-template-columns:1fr}
+      margin-top: 12px;
     }
 
-    h1{
-      font-size:46px;
-      line-height:1.08;
-      margin:0 0 14px;
-      letter-spacing:-.6px;
-    }
-    .subtitle{
-      font-size:17px;
-      line-height:1.65;
-      color:var(--muted);
-      margin:0 0 14px;
-      max-width:820px;
-    }
-    .cred{
-      color:var(--muted2);
-      font-size:13px;
-      line-height:1.55;
-      margin:0 0 18px;
+    .hero-left h1{
+      font-size: clamp(34px, 4.4vw, 58px);
+      line-height: 1.02;
+      margin: 0 0 14px;
+      letter-spacing: -.5px;
     }
 
-    .cta{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 0}
+    .hero-left p{
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 16px;
+      max-width: 62ch;
+    }
+
+    .hero-left p strong{
+      color: var(--text);
+      font-weight:700;
+    }
+
+    .cta{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 16px;
+    }
+
     .btn{
       display:inline-flex;
       align-items:center;
-      gap:10px;
-      padding:11px 14px;
-      border-radius:10px;
-      border:1px solid var(--border);
-      background:transparent;
-      color:var(--text);
-      text-decoration:none;
-      font-size:14px;
+      justify-content:center;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border:1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color: var(--text);
+      font-weight:700;
+      font-size: 14px;
+      cursor:pointer;
+      transition: transform .06s ease, background .15s ease, border-color .15s ease;
       user-select:none;
     }
-    .btn.primary{
-      background:linear-gradient(180deg,var(--accent),var(--accent2));
-      border-color:transparent;
-      color:white;
-      font-weight:600;
-    }
-    .btn:hover{border-color:#3a4251}
-    .btn.primary:hover{filter:brightness(1.05)}
+    .btn:hover{ background: rgba(255,255,255,.05); }
+    .btn:active{ transform: translateY(1px); }
 
-    .tags{margin-top:16px}
-    .tag{
-      display:inline-flex;
-      font-size:12px;
-      color:var(--muted2);
-      border:1px solid var(--border);
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(0,0,0,.10);
-      margin:0 8px 8px 0;
+    .btn-primary{
+      background: linear-gradient(180deg, rgba(47,107,255,.95), rgba(27,77,255,.95));
+      border-color: rgba(47,107,255,.35);
+      box-shadow: 0 10px 26px rgba(47,107,255,.22);
+    }
+    .btn-primary:hover{
+      background: linear-gradient(180deg, rgba(47,107,255,1), rgba(27,77,255,1));
     }
 
-    .panel{
-      background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.88));
-      border:1px solid var(--border);
-      border-radius:14px;
-      padding:18px;
+    .hero-right{
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--stroke2);
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow2);
     }
-    .panel h3{
+    .hero-right h3{
       margin:0 0 10px;
-      font-size:14px;
-      color:#ffffff;
+      font-size: 14px;
       letter-spacing:.2px;
+      color: rgba(255,255,255,.9);
     }
-    .panel p{
-      margin:0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.65;
+    .hero-right p{
+      margin:0 0 10px;
+      color: var(--muted);
+      font-size: 13.5px;
     }
-    .panel p + p{margin-top:12px}
+    .hero-right .badge{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--stroke);
+      background: rgba(255,255,255,.02);
+      color: rgba(255,255,255,.92);
+      font-size: 12px;
+      font-weight:700;
+      margin-top: 8px;
+    }
 
+    /* Section */
+    .section-title{
+      margin: 26px 0 10px;
+      font-size: 14px;
+      letter-spacing: .3px;
+      color: rgba(255,255,255,.86);
+      text-transform: none;
+    }
+
+    /* Cards grid */
     .grid{
       display:grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:14px;
-      margin-top:18px;
-    }
-    @media(max-width:980px){
-      .grid{grid-template-columns:1fr}
+      gap: 14px;
+      margin-top: 10px;
     }
 
-    .section{margin-top:42px}
-    .section h2{
-      margin:0 0 10px;
-      font-size:20px;
-      letter-spacing:-.2px;
-    }
-    .section p{
-      margin:0 0 14px;
-      color:var(--muted);
-      line-height:1.75;
-      font-size:15px;
-      max-width:980px;
+    .card{
+      background: rgba(255,255,255,.03);
+      border: 1px solid var(--stroke2);
+      border-radius: var(--radius);
+      padding: 16px 16px 15px;
+      box-shadow: var(--shadow2);
+      min-height: 148px;
     }
 
-    .list{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:14px;
+    .card h4{
+      margin:0 0 8px;
+      font-size: 14px;
+      color: rgba(255,255,255,.94);
+      letter-spacing:.2px;
     }
-    @media(max-width:980px){
-      .list{grid-template-columns:1fr}
-    }
-    .item{
-      padding:16px;
-      border-radius:12px;
-      border:1px solid var(--border);
-      background:rgba(37,42,51,.75);
-    }
-    .item .k{
-      font-size:13px;
-      color:#fff;
-      margin:0 0 6px;
-      font-weight:600;
-    }
-    .item .v{
-      font-size:14px;
-      color:var(--muted);
+
+    .card p{
       margin:0;
-      line-height:1.65;
+      color: var(--muted);
+      font-size: 13.5px;
     }
 
-    .split{
-      display:grid;
-      grid-template-columns: 1fr 1fr;
-      gap:18px;
-      margin-top:18px;
-    }
-    @media(max-width:980px){
-      .split{grid-template-columns:1fr}
-    }
-
-    .callout{
-      margin-top:14px;
-      padding:14px 14px;
-      border-radius:12px;
-      border:1px dashed #3a4251;
-      background:rgba(0,0,0,.10);
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.6;
-    }
-    .callout b{color:#fff}
-
-    .quote{
-      margin-top:18px;
-      padding:16px;
-      border-radius:14px;
-      border:1px solid var(--border);
-      background:rgba(42,48,59,.55);
-      font-size:16px;
-      line-height:1.65;
-      color:#ffffff;
+    .divider{
+      margin: 18px 0 10px;
+      height:1px;
+      background: rgba(255,255,255,.08);
+      border-radius:999px;
     }
 
     footer{
-      border-top:1px solid var(--border);
-      padding:28px 18px;
-      text-align:center;
-      color:#8b92a1;
-      font-size:13px;
+      margin-top: 26px;
+      padding-top: 16px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      color: rgba(255,255,255,.55);
+      font-size: 12px;
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      flex-wrap:wrap;
     }
+    footer a{color: rgba(255,255,255,.75); text-decoration:underline; text-underline-offset:3px;}
 
-    /* Make links readable on dark sections */
-    a { color: var(--accent); }
-    a:hover { color: #ffffff; }
+    /* Responsive */
+    @media (max-width: 980px){
+      .hero{ grid-template-columns: 1fr; }
+      .hero-right{ order: 2; }
+      .grid{ grid-template-columns: 1fr; }
+      .nav-desktop{ display:none; }
+    }
+    @media (min-width: 981px){
+      /* On desktop keep desktop nav and still allow hamburger if desired */
+      .drawer-backdrop{ display:none !important; }
+    }
   </style>
 </head>
 
 <body>
-
-  <header class="header">
-    <a class="logo" href="index.html" aria-label="Retour à l’accueil">
-      <img src="assets/logo.svg" alt="L-TOPIC logo" />
-      <strong>L-TOPIC</strong>
-    </a>
-
-    <!-- Desktop nav -->
-    <nav class="nav-desktop" aria-label="Navigation">
-      <a href="index.html">Home</a>
+  <!-- Mobile drawer -->
+  <div class="drawer-backdrop" id="backdrop"></div>
+  <nav class="drawer" id="drawer" aria-label="Menu">
+    <div class="drawer-header">
+      <div class="brand" onclick="location.href='index.html'">
+        <!-- Logo (noir sur fond blanc) -->
+        <img src="assets/logo_LTOPIC_white.svg" alt="L-TOPIC" onerror="this.style.display='none';" />
+        <div class="brand-name">L-TOPIC</div>
+      </div>
+      <button class="close-btn" id="closeBtn" aria-label="Fermer le menu"></button>
+    </div>
+    <div class="drawer-links">
+      <a href="index.html">Accueil</a>
       <a href="vision.html">Vision</a>
       <a href="concept.html">Concept</a>
       <a href="contact.html">Contact</a>
-    </nav>
-
-    <!-- Mobile hamburger -->
-    <button class="menu-btn" id="openMenu" aria-label="Ouvrir le menu" aria-expanded="false">
-      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-      </svg>
-    </button>
-  </header>
-
-  <!-- Mobile overlay (clic = fermer) -->
-  <div class="overlay" id="overlay" aria-hidden="true"></div>
-
-  <!-- Mobile menu panel -->
-  <nav class="menu-panel" id="menuPanel" aria-label="Menu principal">
-    <div class="menu-top">
-      <span>NAVIGATION</span>
-      <button class="close-btn" id="closeMenu" aria-label="Fermer le menu">✕</button>
     </div>
-
-    <a href="index.html">Home <small>Accueil</small></a>
-    <a href="vision.html">Vision <small>Cadre & critères</small></a>
-    <a href="concept.html">Concept <small>Architecture</small></a>
-    <a href="contact.html">Contact <small>Partenariats</small></a>
+    <div class="drawer-footer">
+      © L-TOPIC — Plateforme cognitive long-horizon
+    </div>
   </nav>
 
-  <main>
+  <!-- Topbar -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="left">
+        <button class="hamburger" id="menuBtn" aria-label="Ouvrir le menu">
+          <span></span>
+        </button>
 
+        <!-- Brand (clic = retour accueil) -->
+        <a class="brand" href="index.html" aria-label="Retour à l'accueil">
+         
+          <img src="assets/logo_LTOPIC_black.svg" alt="L-TOPIC" onerror="this.style.display='none';" />
+          <div class="brand-name">L-TOPIC</div>
+        </a>
+      </div>
+
+      <!-- Desktop nav -->
+      <div class="right">
+        <nav class="nav-desktop" aria-label="Navigation principale">
+          <a href="index.html">Accueil</a>
+          <a href="vision.html">Vision</a>
+          <a href="concept.html">Concept</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
     <section class="hero">
-      <div>
-        <h1>Plateforme IA long-horizon, orientée décision</h1>
-        <p class="subtitle">
-          L-TOPIC conçoit une plateforme d’intelligence artificielle pour des situations où une réponse ponctuelle ne suffit pas :
-          <b>projets longs</b>, <b>décisions complexes</b>, <b>contextes évolutifs</b>.
-          L’objectif : faire fonctionner une intelligence <b>dans la durée</b>, pas uniquement “au prompt”.
-        </p>
-        <p class="cred">
-          Approche pragmatique : chaque capacité est définie, observée, testée et améliorée (mémoire, planification, vérification).
+      <div class="hero-left">
+        <h1>Plateforme IA long-horizon,<br> orientée décision</h1>
+
+        <p>
+          L-TOPIC conçoit une plateforme d’intelligence artificielle pour des situations
+          où une réponse ponctuelle ne suffit pas :
+          <strong>projets longs, décisions complexes, contextes évolutifs</strong>.
+          L’objectif : faire fonctionner une intelligence dans la durée, pas uniquement “au prompt”.
         </p>
 
+        <p style="margin-top:10px; font-size:13.5px; color:rgba(255,255,255,.72);">
+          Approche pragmatique : chaque capacité est définie, observée, testée et améliorée
+          (mémoire, planification, vérification).
+        </p>
+
+       
         <div class="cta">
-          <a class="btn primary" href="vision.html">Vision & critères →</a>
-          <a class="btn" href="concept.html">Concept & architecture</a>
-          <a class="btn" href="contact.html">Contact</a>
+          <a class="btn btn-primary" href="vision.html">Vision &amp; critères →</a>
+          <a class="btn" href="concept.html">Concept &amp; architecture</a>
         </div>
 
-        <div class="tags">
-          <span class="tag">Mémoire persistante</span>
-          <span class="tag">World model</span>
-          <span class="tag">Multi-objectif</span>
-          <span class="tag">Tâches longues</span>
-          <span class="tag">Évaluation-first</span>
-          <span class="tag">Traçabilité</span>
-        </div>
-
-        <div class="grid">
-          <div class="panel">
-            <h3>Capacité clé — Mémoire persistante</h3>
-            <p>Une mémoire exploitable et structurée : décisions, contraintes, procédures, apprentissages — pas un simple historique.</p>
-          </div>
-          <div class="panel">
-            <h3>Capacité clé — World model</h3>
-            <p>Une représentation interne du contexte (acteurs, règles, risques, hypothèses) mise à jour dans le temps.</p>
-          </div>
-          <div class="panel">
-            <h3>Capacité clé — Long-horizon multi-objectif</h3>
-            <p>Décomposition, priorisation, arbitrage et replanification sur des trajectoires longues, avec continuité.</p>
-          </div>
-        </div>
+       
       </div>
 
-      <div class="panel">
-        <h3>Positionnement (propre)</h3>
+      <aside class="hero-right">
+        <h3>Positionnement</h3>
         <p>
-          Le terme <b>AGI</b> ne repose aujourd’hui sur aucune définition scientifique unique. Beaucoup d’acteurs utilisent des
-          critères “maison” (mémoire, autonomie, planification, continuité).
-          Selon certains critères couramment cités (mémoire persistante, continuité, raisonnement multi-objectif),
-          <b>L-TOPIC pourrait être qualifié d’AGI</b>.
+          Le terme “AGI” n’a pas de définition scientifique unique aujourd’hui.
+          Beaucoup d’acteurs s’appuient sur leurs propres critères — dans ce cadre,
+          L-TOPIC pourrait aussi être décrit comme une “AGI” selon des piliers fonctionnels.
         </p>
         <p>
-          Nous faisons toutefois un choix volontaire : décrire précisément ce que le système <b>construit</b> et ce qu’il peut <b>prouver</b>,
-          plutôt que revendiquer une étiquette.
+          Notre choix est différent : nous visons une intelligence <strong>orientée projet</strong> et
+          <strong>contrôlable</strong> — une <em>Project-Centric Intelligence (PCI)</em>,
+          fondée sur une <em>Cognitive Architecture for Intelligence (CAI)</em>,
+          conçue comme une <em>Controlled Cognitive Intelligence (CCI)</em>.
         </p>
-
-        <div class="callout">
-          L-TOPIC se définit comme une <b>Project-Centric Intelligence (PCI)</b>, basée sur une <b>Cognitive Architecture for Intelligence (CAI)</b>,
-          conçue comme une <b>Controlled Cognitive Intelligence (CCI)</b> : cohérente, traçable, vérifiable et pilotable.
-        </div>
-      </div>
+        <span class="badge">AGI-like fonctionnel • mesurable • traçable</span>
+      </aside>
     </section>
 
-    <section class="section">
-      <h2>Une plateforme, pas une démo</h2>
-      <p>
-        L-TOPIC vise une plateforme réutilisable pour construire des agents fiables : orchestration des outils, observabilité,
-        évaluation, sécurité opérationnelle et extensibilité. L’enjeu n’est pas de produire une réponse impressionnante,
-        mais de piloter une trajectoire dans le temps.
-      </p>
+    <div class="divider"></div>
 
-      <div class="list">
-        <div class="item">
-          <p class="k">1) Mémoire</p>
-          <p class="v">Court / moyen / long terme, structurée, versionnée, traçable, avec rappel ciblé.</p>
-        </div>
-        <div class="item">
-          <p class="k">2) World model</p>
-          <p class="v">Contexte, contraintes, hypothèses, risques : une représentation interne mise à jour au fil des actions.</p>
-        </div>
-        <div class="item">
-          <p class="k">3) Planification & décision</p>
-          <p class="v">Objectifs → sous-objectifs → tâches : priorisation, arbitrage, replanification, maintien de trajectoire.</p>
-        </div>
-        <div class="item">
-          <p class="k">4) Orchestration & preuves</p>
-          <p class="v">Outils, workflows, journal d’actions, sorties et éléments de preuve pour une exécution reproductible.</p>
-        </div>
-        <div class="item">
-          <p class="k">5) Vérification & contrôle</p>
-          <p class="v">Détection d’incertitude, “je ne sais pas”, protocoles de vérification, contraintes d’exécution.</p>
-        </div>
-        <div class="item">
-          <p class="k">6) Évaluation continue</p>
-          <p class="v">Scénarios, métriques, non-régression : amélioration par boucles et retours d’expérience.</p>
-        </div>
-      </div>
+    <h2 class="section-title">Capacités clés</h2>
 
-      <div class="split">
-        <div class="panel">
-          <h3>Sobriété énergétique (signal)</h3>
-          <p>
-            L-TOPIC privilégie une approche inspirée de l’intelligence humaine réelle :
-            capitaliser ce qui fonctionne déjà, activer le raisonnement uniquement lorsque c’est nécessaire,
-            et structurer la décision plutôt que multiplier les recalculs.
-          </p>
-          <p>
-            La sobriété est une conséquence de l’architecture, pas un slogan.
-            Le détail est présenté dans les pages <a href="vision.html">Vision</a> et <a href="concept.html">Concept</a>.
-          </p>
-        </div>
+    <section class="grid" aria-label="Capacités clés">
+      <article class="card">
+        <h4>Capacité clé — Mémoire persistante</h4>
+        <p>
+          Une mémoire exploitable et structurée : décisions, contraintes, procédures,
+          apprentissages — pas un simple historique. L’objectif est la continuité
+          sur des semaines ou des mois.
+        </p>
+      </article>
 
-        <div class="panel">
-          <h3>Premiers usages cibles</h3>
-          <p>
-            L-TOPIC vise les contextes où la durée, la complexité et la responsabilité comptent :
-            projets longs, documentation dense, opérations, conformité, workflows multi-étapes.
-          </p>
-          <p>
-            Si tu as un besoin “long-horizon” (construction, immobilier, opérations, etc.), on peut discuter d’un pilote.
-          </p>
-          <div class="cta" style="margin-top:14px;">
-            <a class="btn primary" href="contact.html">Discuter d’un pilote →</a>
-          </div>
-        </div>
-      </div>
+      <article class="card">
+        <h4>Capacité clé — World model</h4>
+        <p>
+          Une représentation interne du contexte (acteurs, règles, risques, hypothèses)
+          mise à jour dans le temps, pour raisonner au-delà de l’entrée immédiate.
+        </p>
+      </article>
 
-      <div class="quote">
-        <b>L-TOPIC n’essaie pas d’apprendre le monde.</b><br/>
-        Il apprend à <b>décider dans le monde</b>, comme le ferait un humain compétent dans son domaine.
-      </div>
+      <article class="card">
+        <h4>Capacité clé — Long-horizon multi-objectif</h4>
+        <p>
+          Décomposition, priorisation, arbitrage et replanification sur des trajectoires longues,
+          avec cohérence d’ensemble et continuité des décisions.
+        </p>
+      </article>
     </section>
 
+    <footer>
+      <div>© L-TOPIC — Plateforme cognitive long-horizon</div>
+      <div><a href="contact.html">Contact</a></div>
+    </footer>
   </main>
 
-  <footer>
-    © L-TOPIC — Cognitive AI systems for long-horizon work
-  </footer>
-
   <script>
-    const openBtn = document.getElementById('openMenu');
-    const closeBtn = document.getElementById('closeMenu');
-    const overlay = document.getElementById('overlay');
-    const menuPanel = document.getElementById('menuPanel');
+    // Drawer logic
+    const body = document.body;
+    const menuBtn = document.getElementById('menuBtn');
+    const closeBtn = document.getElementById('closeBtn');
+    const backdrop = document.getElementById('backdrop');
 
-    function openMenu(){
-      overlay.classList.add('open');
-      menuPanel.classList.add('open');
-      openBtn.setAttribute('aria-expanded', 'true');
-      overlay.setAttribute('aria-hidden', 'false');
+    function openDrawer(){
+      body.classList.add('drawer-open');
     }
-    function closeMenu(){
-      overlay.classList.remove('open');
-      menuPanel.classList.remove('open');
-      openBtn.setAttribute('aria-expanded', 'false');
-      overlay.setAttribute('aria-hidden', 'true');
+    function closeDrawer(){
+      body.classList.remove('drawer-open');
     }
 
-    openBtn.addEventListener('click', () => {
-      const isOpen = menuPanel.classList.contains('open');
-      if(isOpen) closeMenu(); else openMenu();
-    });
+    menuBtn.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', closeDrawer);
+    backdrop.addEventListener('click', closeDrawer);
 
-    closeBtn.addEventListener('click', closeMenu);
-    overlay.addEventListener('click', closeMenu);
-
-    document.addEventListener('keydown', (e) => {
-      if(e.key === 'Escape') closeMenu();
+    // Escape key closes drawer
+    document.addEventListener('keydown', (e)=>{
+      if(e.key === 'Escape') closeDrawer();
     });
   </script>
-
-</body>
-</html>
-
 </body>
 </html>
 
