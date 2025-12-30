@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>L-TOPIC — Cognitive AI platform</title>
+  <title>L-TOPIC — Long-horizon, decision-oriented AI platform</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="L-TOPIC: long-horizon AI platform (persistent memory, world model, multi-goal reasoning) designed as a Project-Centric Intelligence (PCI) based on a Cognitive Architecture (CAI) with control (CCI)." />
+  <meta name="description" content="L-TOPIC: a long-horizon AI platform (persistent memory, world model, multi-goal reasoning) designed as Project-Centric Intelligence (PCI), built on a Cognitive Architecture for Intelligence (CAI) with control (CCI)." />
 
   <style>
     :root{
@@ -27,6 +27,7 @@
       color:var(--text);
     }
 
+    /* ===== HEADER (white background) ===== */
     .header{
       position:sticky;
       top:0;
@@ -55,6 +56,7 @@
       color:#111827;
     }
 
+    /* Desktop nav */
     .nav-desktop{
       display:flex;
       align-items:center;
@@ -74,6 +76,7 @@
       border-color:#e5e7eb;
     }
 
+    /* Hamburger button (mobile) */
     .menu-btn{
       width:42px;
       height:42px;
@@ -94,6 +97,7 @@
     }
     .menu-btn svg{width:20px;height:20px}
 
+    /* ===== MOBILE MENU OVERLAY + PANEL ===== */
     .overlay{
       position:fixed;
       inset:0;
@@ -145,7 +149,7 @@
       border-radius:12px;
       border:1px solid var(--border);
       background:transparent;
-      color:#ffffff;
+      color:#ffffff; /* dark menu */
       cursor:pointer;
       display:flex;
       align-items:center;
@@ -173,6 +177,7 @@
       font-size:12px;
     }
 
+    /* ===== Responsive rules ===== */
     @media (min-width: 900px){
       .menu-btn{ display:none; }
       .overlay{ display:none !important; }
@@ -183,6 +188,7 @@
       .header{ padding:0 16px; }
     }
 
+    /* ===== LAYOUT ===== */
     main{
       max-width:1120px;
       margin:60px auto;
@@ -242,18 +248,8 @@
       color:white;
       font-weight:600;
     }
-
-    .tags{margin-top:16px}
-    .tag{
-      display:inline-flex;
-      font-size:12px;
-      color:var(--muted2);
-      border:1px solid var(--border);
-      padding:6px 10px;
-      border-radius:999px;
-      background:rgba(0,0,0,.10);
-      margin:0 8px 8px 0;
-    }
+    .btn:hover{border-color:#3a4251}
+    .btn.primary:hover{filter:brightness(1.05)}
 
     .panel{
       background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.88));
@@ -265,6 +261,7 @@
       margin:0 0 10px;
       font-size:14px;
       color:#ffffff;
+      letter-spacing:.2px;
     }
     .panel p{
       margin:0;
@@ -285,9 +282,11 @@
     }
 
     .section{margin-top:42px}
-    .section h2{
+    .section h2,
+    .section h3{
       margin:0 0 10px;
       font-size:20px;
+      letter-spacing:-.2px;
     }
     .section p{
       margin:0 0 14px;
@@ -344,7 +343,8 @@
       font-size:14px;
       line-height:1.6;
     }
-    .callout b{color:#fff}
+    .callout b,
+    .callout strong{color:#fff}
 
     .quote{
       margin-top:18px;
@@ -365,213 +365,262 @@
       font-size:13px;
     }
 
+    /* Make links readable on dark sections */
     a { color: var(--accent); }
     a:hover { color: #ffffff; }
+    .nav-desktop a { color:#374151; } /* keep header links dark */
+    .nav-desktop a:hover { color:#000; }
+    .logo { color:#111827; }
   </style>
 </head>
 
 <body>
 
-<header class="header">
-  <a class="logo" href="index.html">
-    <img src="assets/logo.svg" alt="logo" />
-   
-  </a>
+  <header class="header">
+    <a class="logo" href="index.html" aria-label="Back to home">
+      <img src="assets/logo.svg" alt="L-TOPIC logo" />
+      <strong>L-TOPIC</strong>
+    </a>
 
-  <nav class="nav-desktop">
-    <a href="index.html">Home</a>
-    <a href="vision.html">Vision</a>
-    <a href="concept.html">Concept</a>
-    <a href="contact.html">Contact</a>
+    <!-- Desktop nav -->
+    <nav class="nav-desktop" aria-label="Navigation">
+      <a href="index.html">Home</a>
+      <a href="vision.html">Vision</a>
+      <a href="concept.html">Concept</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button class="menu-btn" id="openMenu" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Mobile overlay (click = close) -->
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <!-- Mobile menu panel -->
+  <nav class="menu-panel" id="menuPanel" aria-label="Main menu">
+    <div class="menu-top">
+      <span>NAVIGATION</span>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">✕</button>
+    </div>
+
+    <a href="index.html">Home <small>Start</small></a>
+    <a href="vision.html">Vision <small>Criteria & framing</small></a>
+    <a href="concept.html">Concept <small>Architecture</small></a>
+    <a href="contact.html">Contact <small>Pilots & partnerships</small></a>
   </nav>
 
-  <button class="menu-btn" id="openMenu">
-    <svg viewBox="0 0 24 24" fill="none">
-      <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-  </button>
-</header>
+  <main>
 
-<div class="overlay" id="overlay"></div>
+    <section class="hero">
+      <div>
+        <h1>Long-horizon, decision-oriented AI platform</h1>
 
-<nav class="menu-panel" id="menuPanel">
-  <div class="menu-top">
-    <span>NAVIGATION</span>
-    <button class="close-btn" id="closeMenu">✕</button>
-  </div>
+        <p class="subtitle">
+          L-TOPIC is designed for situations where single-shot answers are not enough:
+          <b>long-running projects</b>, <b>complex decisions</b>, and <b>evolving contexts</b>.
+          The goal is to make intelligence operate <b>over time</b>, not only at the prompt level.
+        </p>
 
-  <a href="index.html">Home <small>Overview</small></a>
-  <a href="vision.html">Vision <small>Framework & criteria</small></a>
-  <a href="concept.html">Concept <small>Architecture</small></a>
-  <a href="contact.html">Contact <small>Partnerships</small></a>
-</nav>
+        <p class="cred">
+          Pragmatic approach: every capability is defined, observed, tested, and improved (memory, planning, verification).
+        </p>
 
-<main>
+        <!-- CTA: more action-oriented -->
+        <div class="cta">
+          <a class="btn primary" href="contact.html">Discuss a concrete use case →</a>
+          <a class="btn" href="vision.html">Read the vision →</a>
+          <a class="btn" href="concept.html">Concept & architecture</a>
+        </div>
 
-<section class="hero">
-  <div>
-    <h1>Long-horizon, decision-oriented AI platform</h1>
-    <p class="subtitle">
-      L-TOPIC designs an artificial intelligence platform for situations where single-shot answers are not sufficient:
-      <b>long-running projects</b>, <b>complex decisions</b>, <b>evolving contexts</b>.
-      The goal is to make intelligence operate <b>over time</b>, not only “at prompt level”.
-    </p>
-    <p class="cred">
-      Pragmatic approach: each capability is defined, observed, tested and improved
-      (memory, planning, verification).
-    </p>
+        <!-- NEW: marketing callout right after hero -->
+        <div class="callout">
+          <strong>If you are dealing with long-running projects, complex decisions, or systems that must remain coherent over time,</strong>
+          you already know the limits of prompt-based AI.
+          <br><br>
+          L-TOPIC is designed for situations where decisions must survive time, change, and responsibility.
+        </div>
 
-    <div class="cta">
-      <a class="btn primary" href="vision.html">Vision & criteria →</a>
-      <a class="btn" href="concept.html">Concept & architecture</a>
-    </div>
+        <div class="grid">
+          <div class="panel">
+            <h3>Key capability — Persistent memory</h3>
+            <p>A structured, reusable memory: decisions, constraints, procedures, learnings — not just logs.</p>
+          </div>
+          <div class="panel">
+            <h3>Key capability — World model</h3>
+            <p>An internal representation of context (actors, rules, risks, hypotheses) that updates over time.</p>
+          </div>
+          <div class="panel">
+            <h3>Key capability — Long-horizon multi-goal reasoning</h3>
+            <p>Decomposition, prioritization, arbitration, and replanning across long trajectories, with continuity.</p>
+          </div>
+        </div>
 
-    <div class="grid">
+        <!-- NEW: WHO THIS IS FOR -->
+        <section class="section">
+          <h3>Who L-TOPIC is for</h3>
+          <p class="subtitle">
+            L-TOPIC is not a general-purpose chatbot.
+            It is built for people and organizations who operate in environments where mistakes, drift, or loss of context have real costs.
+          </p>
+
+          <div class="list">
+            <div class="item">
+              <p class="k">Operators & builders</p>
+              <p class="v">Running long-term projects, complex operations, or multi-step workflows.</p>
+            </div>
+            <div class="item">
+              <p class="k">Technical founders</p>
+              <p class="v">Who need AI systems that remain reliable, auditable, and evolutive over time.</p>
+            </div>
+            <div class="item">
+              <p class="k">Regulated or high-responsibility domains</p>
+              <p class="v">Where traceability, continuity, and control are not optional.</p>
+            </div>
+            <div class="item">
+              <p class="k">Long-horizon thinkers</p>
+              <p class="v">Who care more about decision quality over time than impressive one-shot answers.</p>
+            </div>
+          </div>
+        </section>
+
+      </div>
+
       <div class="panel">
-        <h3>Key capability — Persistent memory</h3>
-        <p>Structured, reusable memory: decisions, constraints, procedures, learnings — not just a chat history.</p>
+        <h3>Positioning</h3>
+        <p>
+          The term <b>AGI</b> has no single scientific definition today. Many actors define their own criteria
+          (memory, autonomy, planning, continuity) and then claim “AGI” based on those criteria.
+          Under common functional criteria (persistent memory, long-horizon multi-goal reasoning, continuity of execution),
+          <b>L-TOPIC can be considered AGI-like</b>.
+        </p>
+        <p>
+          Our choice is different: we describe precisely what the system <b>builds</b> and what it can <b>prove</b>,
+          rather than relying on a label.
+        </p>
+
+        <div class="callout">
+          L-TOPIC is a <b>Project-Centric Intelligence (PCI)</b>, built on a <b>Cognitive Architecture for Intelligence (CAI)</b>,
+          designed as a <b>Controlled Cognitive Intelligence (CCI)</b>: coherent, traceable, verifiable, and controllable.
+        </div>
       </div>
-      <div class="panel">
-        <h3>Key capability — World model</h3>
-        <p>An internal representation of context (actors, rules, risks, hypotheses) updated over time.</p>
+    </section>
+
+    <section class="section">
+      <h2>A platform, not a demo</h2>
+      <p>
+        L-TOPIC aims to be a reusable platform to build reliable agents: tool orchestration, observability,
+        evaluation, operational safety, and extensibility. The goal is not to produce a flashy answer,
+        but to drive a trajectory over time.
+      </p>
+
+      <div class="list">
+        <div class="item">
+          <p class="k">1) Memory</p>
+          <p class="v">Short / mid / long-term, structured, versioned, traceable, with targeted recall.</p>
+        </div>
+        <div class="item">
+          <p class="k">2) World model</p>
+          <p class="v">Context, constraints, hypotheses, risks: an internal representation updated as actions unfold.</p>
+        </div>
+        <div class="item">
+          <p class="k">3) Planning & decision</p>
+          <p class="v">Goals → sub-goals → tasks: prioritization, arbitration, replanning, trajectory maintenance.</p>
+        </div>
+        <div class="item">
+          <p class="k">4) Orchestration & evidence</p>
+          <p class="v">Tools, workflows, action logs, outputs, and evidence for reproducible execution.</p>
+        </div>
+        <div class="item">
+          <p class="k">5) Verification & control</p>
+          <p class="v">Uncertainty detection, “I don’t know”, verification protocols, execution constraints.</p>
+        </div>
+        <div class="item">
+          <p class="k">6) Continuous evaluation</p>
+          <p class="v">Scenarios, metrics, non-regression: improvement through loops and feedback.</p>
+        </div>
       </div>
-      <div class="panel">
-        <h3>Key capability — Long-horizon multi-goal</h3>
-        <p>Decomposition, prioritization, arbitration and replanning across long trajectories, with continuity.</p>
+
+      <div class="split">
+        <div class="panel">
+          <h3>Energy sobriety (as a consequence)</h3>
+          <p>
+            L-TOPIC favors an approach inspired by real human intelligence:
+            capitalizing what already works, activating heavy reasoning only when necessary,
+            and structuring decision-making rather than multiplying brute-force recomputation.
+          </p>
+          <p>
+            Sobriety is a consequence of the architecture — not a slogan.
+            Details are available on the <a href="vision.html">Vision</a> and <a href="concept.html">Concept</a> pages.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>First target use cases</h3>
+          <p>
+            L-TOPIC targets environments where time, complexity, and responsibility matter:
+            long projects, dense documentation, operations, compliance, multi-step workflows.
+          </p>
+          <p>
+            If you have a long-horizon problem (construction, real estate, operations, etc.), we can discuss a pilot.
+          </p>
+          <div class="cta" style="margin-top:14px;">
+            <a class="btn primary" href="contact.html">Discuss a pilot →</a>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <div class="panel">
-    <h3>Positioning (clear)</h3>
-    <p>
-      The term <b>AGI</b> currently has no single scientific definition. Many actors rely on self-defined criteria
-      (memory, autonomy, planning, continuity).
-      According to some commonly cited criteria (persistent memory, continuity, multi-goal reasoning),
-      <b>L-TOPIC could qualify as AGI</b>.
-    </p>
-    <p>
-      Our deliberate choice is to precisely describe what the system <b>builds</b> and what it can <b>demonstrate</b>,
-      rather than claiming a label.
-    </p>
-
-    <div class="callout">
-      L-TOPIC is defined as a <b>Project-Centric Intelligence (PCI)</b>, built on a
-      <b>Cognitive Architecture for Intelligence (CAI)</b>,
-      designed as a <b>Controlled Cognitive Intelligence (CCI)</b>:
-      coherent, traceable, verifiable and governable.
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <h2>A platform, not a demo</h2>
-  <p>
-    L-TOPIC aims to be a reusable platform for building reliable agents:
-    tool orchestration, observability, evaluation, operational safety and extensibility.
-    The challenge is not to produce an impressive answer, but to steer a trajectory over time.
-  </p>
-
-  <div class="list">
-    <div class="item">
-      <p class="k">1) Memory</p>
-      <p class="v">Short / mid / long-term memory, structured, versioned, traceable, with targeted recall.</p>
-    </div>
-    <div class="item">
-      <p class="k">2) World model</p>
-      <p class="v">Context, constraints, hypotheses, risks: an internal representation updated as actions unfold.</p>
-    </div>
-    <div class="item">
-      <p class="k">3) Planning & decision</p>
-      <p class="v">Goals → sub-goals → tasks: prioritization, arbitration, replanning, trajectory control.</p>
-    </div>
-    <div class="item">
-      <p class="k">4) Orchestration & evidence</p>
-      <p class="v">Tools, workflows, action logs, outputs and evidence for reproducible execution.</p>
-    </div>
-    <div class="item">
-      <p class="k">5) Verification & control</p>
-      <p class="v">Uncertainty detection, “I don’t know”, verification protocols, execution constraints.</p>
-    </div>
-    <div class="item">
-      <p class="k">6) Continuous evaluation</p>
-      <p class="v">Scenarios, metrics, non-regression: improvement through feedback loops.</p>
-    </div>
-  </div>
-
-  <div class="split">
-    <div class="panel">
-      <h3>Energy sobriety (signal)</h3>
-      <p>
-        L-TOPIC favors an approach inspired by real human intelligence:
-        capitalizing on what already works, activating reasoning only when necessary,
-        and structuring decision-making rather than multiplying recomputation.
-      </p>
-      <p>
-        Energy efficiency is a consequence of the architecture, not a marketing slogan.
-        Details are presented in the <a href="vision.html">Vision</a> and <a href="concept.html">Concept</a> pages.
-      </p>
-    </div>
-
-    <div class="panel">
-      <h3>Initial target use cases</h3>
-      <p>
-        L-TOPIC targets contexts where duration, complexity and responsibility matter:
-        long projects, dense documentation, operations, compliance, multi-step workflows.
-      </p>
-      <p>
-        If you have a “long-horizon” use case (construction, real estate, operations, etc.), we can discuss a pilot.
-      </p>
-      <div class="cta" style="margin-top:14px;">
-        <a class="btn primary" href="contact.html">Discuss a pilot →</a>
+      <div class="quote">
+        <b>L-TOPIC is not trying to learn the world.</b><br/>
+        It learns to <b>decide in the world</b>, like a competent human in a concrete domain.
       </div>
-    </div>
-  </div>
+    </section>
 
-  <div class="quote">
-    <b>L-TOPIC does not try to learn the world.</b><br/>
-    It learns to <b>make decisions in the world</b>, like a competent human in their domain.
-  </div>
-</section>
+  </main>
 
-</main>
+  <footer>
+    © L-TOPIC — Cognitive AI systems for long-horizon work
+  </footer>
 
-<footer>
-  © L-TOPIC — Cognitive AI systems for long-horizon work
-</footer>
+  <script>
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    const menuPanel = document.getElementById('menuPanel');
 
-<script>
-  const openBtn = document.getElementById('openMenu');
-  const closeBtn = document.getElementById('closeMenu');
-  const overlay = document.getElementById('overlay');
-  const menuPanel = document.getElementById('menuPanel');
+    function openMenu(){
+      overlay.classList.add('open');
+      menuPanel.classList.add('open');
+      openBtn.setAttribute('aria-expanded', 'true');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+    function closeMenu(){
+      overlay.classList.remove('open');
+      menuPanel.classList.remove('open');
+      openBtn.setAttribute('aria-expanded', 'false');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
 
-  function openMenu(){
-    overlay.classList.add('open');
-    menuPanel.classList.add('open');
-    openBtn.setAttribute('aria-expanded', 'true');
-  }
-  function closeMenu(){
-    overlay.classList.remove('open');
-    menuPanel.classList.remove('open');
-    openBtn.setAttribute('aria-expanded', 'false');
-  }
+    openBtn.addEventListener('click', () => {
+      const isOpen = menuPanel.classList.contains('open');
+      if(isOpen) closeMenu(); else openMenu();
+    });
 
-  openBtn.addEventListener('click', () => {
-    const isOpen = menuPanel.classList.contains('open');
-    if(isOpen) closeMenu(); else openMenu();
-  });
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
 
-  closeBtn.addEventListener('click', closeMenu);
-  overlay.addEventListener('click', closeMenu);
-
-  document.addEventListener('keydown', (e) => {
-    if(e.key === 'Escape') closeMenu();
-  });
-</script>
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeMenu();
+    });
+  </script>
 
 </body>
 </html>
+
 
 
 
