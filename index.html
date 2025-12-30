@@ -3,57 +3,81 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title> Long-horizon, decision-oriented AI platform</title>
+  <title>L-TOPIC — Long-horizon, decision-oriented AI platform</title>
   <meta name="description" content="L-TOPIC builds a long-horizon, decision-oriented AI platform for complex projects, evolving contexts, and sustained reasoning over time." />
 
   <style>
     :root{
-      --bg:#1f2430;
+      --bg:#1f2430;          /* slightly lighter dark */
       --panel:#242b39;
+      --panel2:#2a3242;
       --text:#e9eef7;
       --muted:#b8c2d6;
       --line:rgba(255,255,255,.10);
       --shadow:0 10px 30px rgba(0,0,0,.25);
       --radius:16px;
       --blue:#3b82f6;
-      --white:#ffffff;
-      --black:#0b0f1a;
+      --blue2:#2563eb;
+
+      --topbar:#ffffff;      /* WHITE top bar */
+      --toptext:#0b0f1a;
+      --topline:rgba(0,0,0,.10);
     }
+
     *{box-sizing:border-box}
     body{
       margin:0;
       font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1100px 700px at 20% -10%, rgba(59,130,246,.22), transparent 55%),
-                  radial-gradient(900px 600px at 110% 10%, rgba(147,197,253,.16), transparent 55%),
-                  var(--bg);
+      background:
+        radial-gradient(1100px 700px at 20% -10%, rgba(59,130,246,.22), transparent 55%),
+        radial-gradient(900px 600px at 110% 10%, rgba(147,197,253,.16), transparent 55%),
+        var(--bg);
       color:var(--text);
     }
     a{color:inherit;text-decoration:none}
     .wrap{max-width:1080px;margin:0 auto;padding:22px 18px 80px}
 
-    /* Top bar */
+    /* Top bar (desktop nav visible) */
     .topbar{
       position:sticky; top:0; z-index:10;
-      background:var(--white);
-      border-bottom:1px solid rgba(0,0,0,.08);
+      background:var(--topbar);
+      border-bottom:1px solid var(--topline);
     }
     .topbar-inner{
       max-width:1080px;margin:0 auto;
       padding:12px 18px;
       display:flex;align-items:center;justify-content:space-between;
+      gap:14px;
     }
     .brand{
       display:flex;align-items:center;gap:12px;
-      color:var(--black);
+      color:var(--toptext);
+      font-weight:800;
+      letter-spacing:.2px;
+      min-width:220px;
+    }
+    .brand img{height:28px; display:block}
+
+    .nav{
+      display:flex; gap:10px; align-items:center;
+      color:var(--toptext);
       font-weight:700;
     }
-    .brand img{height:28px}
+    .nav a{
+      padding:10px 12px;
+      border-radius:12px;
+      border:1px solid rgba(0,0,0,.08);
+      background:rgba(0,0,0,.02);
+    }
+    .nav a:hover{background:rgba(0,0,0,.05)}
 
+    /* Hamburger only on mobile */
     .hamburger{
-      width:42px;height:42px;border-radius:12px;
+      width:44px;height:44px;border-radius:12px;
       border:1px solid rgba(0,0,0,.10);
       background:#fff;
-      display:flex;align-items:center;justify-content:center;
+      display:none; /* hidden on desktop */
+      align-items:center;justify-content:center;
       cursor:pointer;
     }
     .hamburger span{
@@ -65,61 +89,71 @@
     .hamburger span:before{top:-6px}
     .hamburger span:after{top:6px}
 
-    /* Drawer menu */
+    /* Mobile drawer */
     .drawer{position:fixed; inset:0; display:none; z-index:20;}
     .drawer.open{display:block}
     .overlay{position:absolute; inset:0; background:rgba(0,0,0,.45)}
-    .panel{
+    .drawer-panel{
       position:absolute; right:0; top:0; height:100%; width:min(340px,86vw);
       background:#fff; color:#0b0f1a; padding:18px;
       box-shadow:-20px 0 50px rgba(0,0,0,.25);
     }
-    .panel a{
+    .drawer-panel a{
       display:block; padding:12px; margin-top:10px;
       border-radius:12px; border:1px solid rgba(0,0,0,.1);
-      font-weight:600;
+      font-weight:700;
     }
 
     /* Hero */
     h1{
-      font-size:clamp(34px,4.5vw,52px);
+      font-size:clamp(34px,4.5vw,54px);
       line-height:1.05;
       letter-spacing:-.6px;
-      margin-bottom:14px;
+      margin:0 0 14px 0;
     }
     .lead{
       color:var(--muted);
-      max-width:62ch;
+      max-width:68ch;
       line-height:1.6;
+      margin:0;
     }
-    .cta-row{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+
+    .hero-grid{
+      margin-top:22px;
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:26px;
+      align-items:start;
+    }
+
+    .cta-row{
+      display:flex; gap:10px; margin-top:18px; flex-wrap:wrap;
+    }
     .btn{
       padding:11px 14px;
       border-radius:12px;
       border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.06);
-      font-weight:700;
+      font-weight:800;
+      display:inline-flex; align-items:center; gap:8px;
     }
     .btn.primary{
-      background:linear-gradient(180deg,#3b82f6,#2563eb);
+      background:linear-gradient(180deg,var(--blue),var(--blue2));
       border:none;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:26px;
     }
 
     .sidecard{
       background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.10);
       border-radius:var(--radius);
       padding:16px;
+      box-shadow:var(--shadow);
     }
+    .sidecard p{margin:0; color:var(--muted); line-height:1.6}
+    .sidecard p + p{margin-top:10px}
 
     .section{
-      margin-top:22px;
+      margin-top:18px;
       padding:18px;
       background:rgba(255,255,255,.03);
       border-radius:var(--radius);
@@ -135,26 +169,46 @@
       background:rgba(36,43,57,.85);
       padding:14px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.10);
     }
-    .kicker{font-weight:800;font-size:13px;margin-bottom:8px}
-    footer{margin-top:18px;font-size:12px;color:rgba(233,238,247,.6)}
+    .kicker{font-weight:900;font-size:13px;margin:0 0 8px 0}
+    .card p{margin:0;color:var(--muted);line-height:1.55}
 
+    .pos-title{
+      font-weight:900;
+      margin:0 0 8px 0;
+      letter-spacing:.2px;
+    }
+    .pos-text{margin:0;color:var(--muted);line-height:1.6}
+
+    footer{
+      margin-top:18px;
+      font-size:12px;
+      color:rgba(233,238,247,.6);
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
+    }
+
+    /* Responsive */
     @media(max-width:940px){
       .hero-grid,.cards{grid-template-columns:1fr}
+    }
+    @media(max-width:820px){
+      .nav{display:none;}        /* desktop nav hidden on mobile */
+      .hamburger{display:flex;}  /* hamburger visible on mobile */
+      .brand{min-width:auto}
     }
   </style>
 </head>
 
 <body>
 
-<!-- Drawer -->
+<!-- Mobile drawer -->
 <div class="drawer" id="drawer">
   <div class="overlay" onclick="toggleDrawer()"></div>
-  <div class="panel">
+  <div class="drawer-panel">
     <a href="index.html">Home</a>
-    <a href="vision.html">Vision & Criteria</a>
-    <a href="concept.html">Concept & Architecture</a>
+    <a href="vision.html">Vision</a>
+    <a href="concept.html">Concept</a>
     <a href="contact.html">Contact</a>
   </div>
 </div>
@@ -162,94 +216,127 @@
 <!-- Top bar -->
 <header class="topbar">
   <div class="topbar-inner">
-    <button class="hamburger" onclick="toggleDrawer()"><span></span></button>
-    <a class="brand" href="index.html">
-      <img src="assets/logo_LTOPIC_black.svg" alt="L-TOPIC">
+
+    <!-- Hamburger (mobile only via CSS) -->
+    <button class="hamburger" onclick="toggleDrawer()" aria-label="Open menu">
+      <span></span>
+    </button>
+
+    <!-- Logo click = back to Home -->
+    <a class="brand" href="index.html" aria-label="Go to Home">
+      <img src="assets/logo_LTOPIC_black.svg" alt="L-TOPIC logo">
       <span>L-TOPIC</span>
     </a>
-    <div style="width:42px"></div>
+
+    <!-- Desktop nav -->
+    <nav class="nav" aria-label="Primary">
+      <a href="index.html">Home</a>
+      <a href="vision.html">Vision</a>
+      <a href="concept.html">Concept</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
   </div>
 </header>
 
 <main class="wrap">
 
-<section class="hero">
-  <div class="hero-grid">
+  <!-- HERO -->
+  <section>
+    <h1>Long-horizon, decision-oriented AI platform</h1>
 
-    <div>
-      <h1>Long-horizon, decision-oriented AI platform</h1>
+    <p class="lead">
+      L-TOPIC is designed for situations where single-shot answers are not enough:
+      <strong>long-running projects</strong>, <strong>complex decisions</strong>, and
+      <strong>evolving contexts</strong>. The goal is to make intelligence operate over time —
+      not just at prompt level.
+    </p>
 
-      <p class="lead">
-        L-TOPIC is designed for situations where single-shot answers are not enough:
-        <strong>long-running projects</strong>, <strong>complex decisions</strong>,
-        and <strong>evolving contexts</strong>.
-        The goal is to make intelligence operate over time — not just at prompt level.
-      </p>
+    <div class="cta-row">
+      <a class="btn primary" href="vision.html">Vision & criteria →</a>
+      <a class="btn" href="concept.html">Concept & architecture</a>
+      <a class="btn" href="contact.html">Contact</a>
+    </div>
 
-      <div class="cta-row">
-        <a class="btn primary" href="vision.html">Vision & criteria →</a>
-        <a class="btn" href="concept.html">Concept & architecture</a>
+    <div class="hero-grid">
+
+      <!-- Left: key capabilities -->
+      <div class="section">
+        <div class="cards">
+          <div class="card">
+            <p class="kicker">Key capability — Persistent memory</p>
+            <p>
+              Structured, reusable memory: decisions, constraints, procedures and learnings —
+              not just logs. Continuity across sessions and projects.
+            </p>
+          </div>
+
+          <div class="card">
+            <p class="kicker">Key capability — World model</p>
+            <p>
+              An internal representation of context (actors, rules, risks, hypotheses),
+              continuously updated to reason beyond immediate input.
+            </p>
+          </div>
+
+          <div class="card">
+            <p class="kicker">Key capability — Long-horizon multi-goal reasoning</p>
+            <p>
+              Decomposition, prioritization, arbitration and replanning across long trajectories,
+              with continuity.
+            </p>
+          </div>
+        </div>
       </div>
+
+      <!-- Right: positioning -->
+      <aside class="sidecard">
+        <p>
+          The term “AGI” has no single scientific definition. Some actors define their own criteria
+          and claim AGI accordingly. Under functional definitions, L-TOPIC could qualify as AGI-like.
+        </p>
+
+        <p>
+          Our approach is different. L-TOPIC is a <strong>Project-Centric Intelligence (PCI)</strong>,
+          based on a <strong>Cognitive Architecture for Intelligence (CAI)</strong>, with a strong emphasis
+          on <strong>Controlled Cognitive Intelligence (CCI)</strong>: traceability, coherence, and governance.
+        </p>
+
+        <p>
+          This direction naturally leads to sobriety: not by “marketing”, but because we aim to mirror
+          how humans operate — capitalizing on experience, procedures and tools rather than massive
+          re-learning through brute force.
+        </p>
+      </aside>
+
     </div>
+  </section>
 
-    <aside class="sidecard">
-      <p>
-        The term “AGI” has no single scientific definition. Some actors define their own
-        criteria and claim AGI accordingly. Under functional definitions,
-        L-TOPIC could qualify as AGI-like.
-      </p>
-      <p style="margin-top:10px">
-        Our approach is different. L-TOPIC is a
-        <strong>Project-Centric Intelligence (PCI)</strong>,
-        built on a <strong>Cognitive Architecture for Intelligence (CAI)</strong>,
-        with a strong emphasis on <strong>Controlled Cognitive Intelligence (CCI)</strong>:
-        traceability, coherence, and governance.
-      </p>
-    </aside>
+  <!-- POSITIONING (short block under) -->
+  <section class="section" style="margin-top:18px">
+    <p class="pos-title">Positioning</p>
+    <p class="pos-text">
+      L-TOPIC does not chase a mythical, omniscient super-intelligence. It targets a human-realistic form of intelligence:
+      situated, specialized, persistent, and capable of deciding effectively in concrete environments over time.
+    </p>
+  </section>
 
-  </div>
-</section>
-
-<section class="section">
-  <div class="cards">
-    <div class="card">
-      <div class="kicker">Key capability — Persistent memory</div>
-      <p>
-        Structured, reusable memory: decisions, constraints, procedures and learnings —
-        not just logs. Continuity across sessions and projects.
-      </p>
-    </div>
-
-    <div class="card">
-      <div class="kicker">Key capability — World model</div>
-      <p>
-        An internal representation of context (actors, rules, risks, hypotheses),
-        continuously updated to reason beyond immediate input.
-      </p>
-    </div>
-
-    <div class="card">
-      <div class="kicker">Key capability — Long-horizon multi-goal reasoning</div>
-      <p>
-        Decomposition, prioritization, arbitration and replanning across long trajectories,
-        with continuity.
-      </p>
-    </div>
-  </div>
-</section>
-
-<footer>
-  © <span id="year"></span> L-TOPIC — Cognitive platform for sustained decision-making
-</footer>
+  <footer>
+    <div>© <span id="year"></span> L-TOPIC — Cognitive platform for sustained decision-making</div>
+    <div>Built for long-horizon projects • Traceable • Governable</div>
+  </footer>
 
 </main>
 
 <script>
-function toggleDrawer(){
-  document.getElementById("drawer").classList.toggle("open");
-}
-document.getElementById("year").textContent=new Date().getFullYear();
+  function toggleDrawer(){
+    document.getElementById("drawer").classList.toggle("open");
+  }
+  document.getElementById("year").textContent = new Date().getFullYear();
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
