@@ -2,189 +2,606 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>L-TOPIC — Vision</title>
+  <title>L-TOPIC — Vision & criteria</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="L-TOPIC vision and functional criteria: redefining AGI as human-like intelligence (situated, limited, project-centered), built as PCI on a CAI with CCI (traceable, verifiable, controllable), with human-aligned energy sobriety." />
 
   <style>
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Inter, sans-serif;
-      background: #1f2329; /* anthracite clair */
-      color: #e6e8eb;
-      line-height: 1.6;
+    :root{
+      --bg:#1f232a;
+      --panel:#252a33;
+      --panel2:#2a303b;
+      --border:#2e3440;
+      --text:#eaeaea;
+      --muted:#cfd6e0;
+      --muted2:#aab3c2;
+      --accent:#4f7cff;
+      --accent2:#3b66f0;
+      --shadow: rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:var(--bg);
+      color:var(--text);
     }
 
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 24px 48px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
+    /* ===== HEADER (white background) ===== */
+    .header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 24px;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
     }
 
-    header img {
-      height: 75px;
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:#111827;
+      min-width:170px;
+    }
+    .logo img{height:34px}
+    .logo strong{
+      font-size:14px;
+      letter-spacing:.4px;
+      color:#111827;
     }
 
-    nav a {
-      color: #cfd3da;
-      text-decoration: none;
-      margin-left: 24px;
-      font-size: 14px;
+    /* Desktop nav */
+    .nav-desktop{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .nav-desktop a{
+      color:#374151;
+      text-decoration:none;
+      font-size:14px;
+      padding:10px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
+    }
+    .nav-desktop a:hover{
+      color:#000;
+      background:#f3f4f6;
+      border-color:#e5e7eb;
+    }
+    .nav-desktop a.active{
+      color:#111827;
+      background:#f3f4f6;
+      border-color:#e5e7eb;
+      font-weight:600;
     }
 
-    nav a:hover {
-      color: #ffffff;
+    /* Hamburger button (mobile) */
+    .menu-btn{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      background:#ffffff;
+      color:#111827;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition: border-color .15s ease, background .15s ease;
+      user-select:none;
+    }
+    .menu-btn:hover{
+      background:#f3f4f6;
+      border-color:#d1d5db;
+    }
+    .menu-btn svg{width:20px;height:20px}
+
+    /* ===== MOBILE MENU OVERLAY + PANEL ===== */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      backdrop-filter: blur(2px);
+      display:none;
+      z-index:1100;
+    }
+    .overlay.open{display:block}
+
+    .menu-panel{
+      position:fixed;
+      top:14px;
+      right:14px;
+      width:260px;
+      background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.92));
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow: 0 20px 60px var(--shadow);
+      padding:12px;
+      display:none;
+      z-index:1200;
+      transform: translateY(-6px);
+      opacity: 0;
+      transition: transform .16s ease, opacity .16s ease;
+    }
+    .menu-panel.open{
+      display:block;
+      transform: translateY(0);
+      opacity: 1;
     }
 
-    main {
-      max-width: 980px;
-      margin: 80px auto;
-      padding: 0 32px;
+    .menu-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:6px 6px 10px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:8px;
+    }
+    .menu-top span{
+      font-size:12px;
+      color:var(--muted2);
+      letter-spacing:.25px;
+    }
+    .close-btn{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:transparent;
+      color:#ffffff;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .close-btn:hover{border-color:#3a4251; background:rgba(255,255,255,.03)}
+
+    .menu-panel a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 12px;
+      border-radius:12px;
+      text-decoration:none;
+      color:var(--text);
+      font-size:14px;
+      border:1px solid transparent;
+    }
+    .menu-panel a:hover{
+      background:rgba(255,255,255,.03);
+      border-color:#3a4251;
+    }
+    .menu-panel a small{
+      color:var(--muted2);
+      font-size:12px;
     }
 
-    h1 {
-      font-size: 44px;
-      font-weight: 600;
-      margin-bottom: 24px;
-      letter-spacing: -0.5px;
+    /* ===== Responsive rules ===== */
+    @media (min-width: 900px){
+      .menu-btn{ display:none; }
+      .overlay{ display:none !important; }
+      .menu-panel{ display:none !important; }
+    }
+    @media (max-width: 899px){
+      .nav-desktop{ display:none; }
+      .header{ padding:0 16px; }
     }
 
-    h2 {
-      font-size: 26px;
-      margin-top: 64px;
-      margin-bottom: 16px;
+    /* ===== LAYOUT ===== */
+    main{
+      max-width:1120px;
+      margin:46px auto;
+      padding:0 40px 84px;
+    }
+    @media(max-width:980px){
+      main{padding:0 18px 74px}
     }
 
-    p {
-      font-size: 18px;
-      color: #cfd3da;
-      max-width: 880px;
+    .hero{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:22px;
+      align-items:start;
+    }
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
     }
 
-    .pillars {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 24px;
-      margin-top: 32px;
+    h1{
+      font-size:44px;
+      line-height:1.08;
+      margin:0 0 14px;
+      letter-spacing:-.6px;
+    }
+    .subtitle{
+      font-size:16px;
+      line-height:1.7;
+      color:var(--muted);
+      margin:0 0 14px;
+      max-width:840px;
     }
 
-    .pillar {
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 12px;
-      padding: 24px;
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 0}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--text);
+      text-decoration:none;
+      font-size:14px;
+      user-select:none;
+    }
+    .btn.primary{
+      background:linear-gradient(180deg,var(--accent),var(--accent2));
+      border-color:transparent;
+      color:white;
+      font-weight:600;
+    }
+    .btn:hover{border-color:#3a4251}
+    .btn.primary:hover{filter:brightness(1.05)}
+
+    .panel{
+      background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.88));
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:18px;
+    }
+    .panel h3{
+      margin:0 0 10px;
+      font-size:14px;
+      color:#ffffff;
+      letter-spacing:.2px;
+    }
+    .panel p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.7;
+    }
+    .panel p + p{margin-top:12px}
+
+    .callout{
+      margin-top:14px;
+      padding:14px 14px;
+      border-radius:12px;
+      border:1px dashed #3a4251;
+      background:rgba(0,0,0,.10);
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.65;
+    }
+    .callout b{color:#fff}
+
+    .section{
+      margin-top:40px;
+    }
+    .section h2{
+      margin:0 0 12px;
+      font-size:20px;
+      letter-spacing:-.2px;
+    }
+    .section p{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.8;
+      font-size:15px;
+      max-width:980px;
     }
 
-    .pillar h3 {
-      margin-top: 0;
-      margin-bottom: 8px;
-      font-size: 18px;
+    .grid-2{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+      margin-top:14px;
+    }
+    @media(max-width:980px){
+      .grid-2{grid-template-columns:1fr}
     }
 
-    footer {
-      margin-top: 120px;
-      padding: 32px;
-      text-align: center;
-      font-size: 13px;
-      color: #9aa0a6;
-      border-top: 1px solid rgba(255,255,255,0.06);
+    .item{
+      padding:16px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(37,42,51,.75);
     }
+    .item .k{
+      font-size:13px;
+      color:#fff;
+      margin:0 0 8px;
+      font-weight:700;
+    }
+    .item .v{
+      font-size:14px;
+      color:var(--muted);
+      margin:0;
+      line-height:1.7;
+    }
+
+    .pill-row{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:10px;
+    }
+    .pill{
+      display:inline-flex;
+      padding:7px 10px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:rgba(0,0,0,.10);
+      color:var(--muted2);
+      font-size:12px;
+    }
+
+    .quote{
+      margin-top:16px;
+      padding:16px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(42,48,59,.55);
+      font-size:16px;
+      line-height:1.7;
+      color:#ffffff;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      padding:28px 18px;
+      text-align:center;
+      color:#8b92a1;
+      font-size:13px;
+      margin-top:46px;
+    }
+
+    /* Make links readable on dark sections */
+    a { color: var(--accent); }
+    a:hover { color: #ffffff; }
   </style>
 </head>
 
 <body>
 
-<header>
-  <img src="assets/logo.svg" alt="logo">
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="contact.html">Contact</a>
+  <header class="header">
+    <a class="logo" href="index.html" aria-label="Back to Home">
+      <img src="assets/logo.svg" alt="L-TOPIC logo" />
+      <strong>L-TOPIC</strong>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="nav-desktop" aria-label="Navigation">
+      <a href="index.html">Home</a>
+      <a class="active" href="vision.html">Vision</a>
+      <a href="concept.html">Concept</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button class="menu-btn" id="openMenu" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <nav class="menu-panel" id="menuPanel" aria-label="Main menu">
+    <div class="menu-top">
+      <span>NAVIGATION</span>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">✕</button>
+    </div>
+
+    <a href="index.html">Home <small>Overview</small></a>
+    <a href="vision.html">Vision <small>Principles & criteria</small></a>
+    <a href="concept.html">Concept <small>Architecture</small></a>
+    <a href="contact.html">Contact <small>Partnerships</small></a>
   </nav>
-</header>
 
-<main>
+  <main>
 
-  <h1>Vision</h1>
+    <section class="hero">
+      <div>
+        <h1>Vision & functional criteria</h1>
+        <p class="subtitle">
+          L-TOPIC is built for long-running work: projects that require continuity, decision-making, and control over time.
+          Our approach is product-oriented and deep-tech: we define capabilities, measure them, and iterate.
+        </p>
 
-  <p>
-    LTOPIC is built around a simple conviction:  
-    intelligent systems become truly useful only when they can reason,
-    remember, and act coherently over extended periods of time.
-  </p>
+        <div class="cta">
+          <a class="btn primary" href="concept.html">See the architecture →</a>
+          <a class="btn" href="index.html">Back to Home</a>
+        </div>
 
-  <p>
-    Rather than chasing abstract definitions of Artificial General Intelligence,
-    LTOPIC focuses on **functional intelligence** — measurable, deployable,
-    and grounded in real-world constraints.
-  </p>
+        <div class="section" style="margin-top:28px;">
+          <h2>Reframing “AGI”: human-level, not super-intelligence</h2>
+          <p>
+            We consider the “AGI = super-intelligence that understands everything” narrative to be a conceptual confusion.
+            Human intelligence is not omniscient, universal, or all-powerful. A human does not know everything, cannot do everything,
+            and is not “general” in an absolute sense.
+          </p>
+          <p>
+            A competent human is <b>situated</b>, <b>contextual</b>, and <b>specialized through experience</b>.
+            That is the reference we find most relevant.
+          </p>
 
-  <h2>Beyond the AGI label</h2>
+          <div class="quote">
+            <b>L-TOPIC does not aim for an abstract super-intelligence.</b><br/>
+            It aims for intelligence comparable to a real human: situated, specialized, and able to decide effectively in concrete situations.
+          </div>
+        </div>
+      </div>
 
-  <p>
-    There is currently no scientific consensus on what AGI truly is.
-    Many definitions rely on philosophical or speculative criteria.
-  </p>
+      <div class="panel">
+        <h3>Positioning (clear and rigorous)</h3>
+        <p>
+          The term <b>AGI</b> has no single scientific definition today. Many actors define their own criteria (memory, autonomy,
+          planning, continuity), and then claim “AGI” according to those criteria.
+        </p>
+        <p>
+          Under common functional criteria (persistent memory, long-horizon multi-goal reasoning, continuity of execution),
+          <b>L-TOPIC can be considered AGI-like</b>.
+          We still prefer to describe what the system builds and proves, rather than relying on a label.
+        </p>
 
-  <p>
-    LTOPIC adopts a pragmatic stance:  
-    if an intelligent system exhibits the core functional properties
-    commonly associated with AGI, then its value lies in what it can do —
-    not in how it is labeled.
-  </p>
+        <div class="callout">
+          L-TOPIC is a <b>Project-Centric Intelligence (PCI)</b>, built on a <b>Cognitive Architecture for Intelligence (CAI)</b>,
+          designed as a <b>Controlled Cognitive Intelligence (CCI)</b>: coherent, traceable, verifiable, and controllable.
+        </div>
 
-  <h2>The three functional pillars</h2>
+        <div class="pill-row">
+          <span class="pill">Continuity over time</span>
+          <span class="pill">Measured capabilities</span>
+          <span class="pill">Traceability</span>
+          <span class="pill">Governance & control</span>
+        </div>
+      </div>
+    </section>
 
-  <p>
-    LTOPIC is structured around three foundational capabilities
-    frequently cited as essential for general intelligence.
-  </p>
-
-  <div class="pillars">
-    <div class="pillar">
-      <h3>Persistent memory</h3>
+    <section class="section">
+      <h2>Human-like intelligence implies limits — and that is the point</h2>
       <p>
-        The ability to maintain durable internal state across time,
-        projects, and interactions — beyond single sessions or prompts.
+        If “AGI” means intelligence comparable to a human, several observations follow:
+        humans do not learn by massive constant recomputation; they do not endlessly re-learn what is already known;
+        they progress through <b>capitalization</b>, <b>procedures</b>, <b>rules</b>, and <b>feedback loops</b>.
+        They rely on tools rather than complete understanding of the world.
       </p>
-    </div>
-
-    <div class="pillar">
-      <h3>World models</h3>
       <p>
-        Internal representations of the environment, tasks, and agents,
-        enabling reasoning beyond immediate input.
+        In that frame, trying to build an AI that “understands everything” or “learns everything” is not just unrealistic —
+        it is not representative of real human intelligence.
       </p>
-    </div>
 
-    <div class="pillar">
-      <h3>Long-horizon goal reasoning</h3>
+      <div class="grid-2">
+        <div class="item">
+          <p class="k">What we do</p>
+          <p class="v">
+            Build a system that reasons in context, keeps continuity, chooses actions, verifies results, and improves through experience.
+            The objective is reliable decision-making over time.
+          </p>
+        </div>
+        <div class="item">
+          <p class="k">What we do not do</p>
+          <p class="v">
+            We do not chase “omniscience”. We do not aim to “learn the whole world”.
+            We avoid endless recomputation and focus on structured intelligence and measurable capability.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Energy sobriety: human-aligned by design</h2>
       <p>
-        Planning, prioritization, and decision-making across evolving
-        timelines and multiple objectives.
+        L-TOPIC’s energy sobriety is not a marketing slogan — it is a direct consequence of a human-like approach.
+        We do not rely on a permanently-trained “army of neurons” that requires massive ongoing compute.
       </p>
-    </div>
-  </div>
+      <p>
+        Instead, we prioritize what humans do:
+        <b>reuse what works</b>, <b>activate deep reasoning only when needed</b>, and <b>structure decisions</b>
+        rather than multiply costly recalculations.
+      </p>
 
-  <h2>Positioning</h2>
+      <div class="panel" style="margin-top:14px;">
+        <h3>Practical implications</h3>
+        <p>
+          The system is designed to capitalize knowledge and procedures, reduce redundant processing,
+          and focus compute on decision points and verification. This supports scalable deployment and long-horizon operation.
+        </p>
+      </div>
+    </section>
 
-  <p>
-    LTOPIC does not claim to be an Artificial General Intelligence.
-    It is an **AGI-like functional system**, designed with architectural clarity,
-    incremental validation, and practical deployment in mind.
-  </p>
+    <section class="section">
+      <h2>How we evaluate progress</h2>
+      <p>
+        L-TOPIC is built as a platform: each capability is defined, tested, and improved with clear signals.
+        We care about what the system can reliably do in real workflows, not isolated demos.
+      </p>
 
-  <p>
-    Research informs the platform — but product utility drives it.
-    The goal is not to impress with claims, but to deliver systems
-    that remain coherent, adaptive, and reliable over time.
-  </p>
+      <div class="grid-2">
+        <div class="item">
+          <p class="k">Continuity</p>
+          <p class="v">Maintains context across sessions and long timelines without losing trajectory.</p>
+        </div>
+        <div class="item">
+          <p class="k">Persistent memory</p>
+          <p class="v">Stores and retrieves structured knowledge: decisions, constraints, procedures, learnings.</p>
+        </div>
+        <div class="item">
+          <p class="k">World model</p>
+          <p class="v">Keeps an internal representation of actors, rules, risks, hypotheses, updated over time.</p>
+        </div>
+        <div class="item">
+          <p class="k">Multi-goal reasoning</p>
+          <p class="v">Decomposes goals, prioritizes, arbitrates trade-offs, and replans across long horizons.</p>
+        </div>
+        <div class="item">
+          <p class="k">Verification & control</p>
+          <p class="v">Detects uncertainty, uses verification protocols, respects constraints and governance.</p>
+        </div>
+        <div class="item">
+          <p class="k">Traceability</p>
+          <p class="v">Maintains an auditable record of actions, decisions, and evidence for reproducibility.</p>
+        </div>
+      </div>
 
-</main>
+      <div class="quote">
+        <b>L-TOPIC does not try to learn the world.</b><br/>
+        It learns to <b>decide in the world</b>, like a competent human in a real domain.
+      </div>
 
-<footer>
-  © LTOPIC — Cognitive AI platform
-</footer>
+      <div class="cta" style="margin-top:18px;">
+        <a class="btn primary" href="concept.html">Architecture & concept →</a>
+        <a class="btn" href="contact.html">Discuss a pilot</a>
+      </div>
+    </section>
+
+    <footer>
+      © L-TOPIC — Cognitive AI systems for long-horizon work
+    </footer>
+
+  </main>
+
+  <script>
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    const menuPanel = document.getElementById('menuPanel');
+
+    function openMenu(){
+      overlay.classList.add('open');
+      menuPanel.classList.add('open');
+      openBtn.setAttribute('aria-expanded', 'true');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+    function closeMenu(){
+      overlay.classList.remove('open');
+      menuPanel.classList.remove('open');
+      openBtn.setAttribute('aria-expanded', 'false');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    openBtn.addEventListener('click', () => {
+      const isOpen = menuPanel.classList.contains('open');
+      if(isOpen) closeMenu(); else openMenu();
+    });
+
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeMenu();
+    });
+  </script>
 
 </body>
 </html>
