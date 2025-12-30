@@ -27,7 +27,7 @@
       color:var(--text);
     }
 
-    /* ===== HEADER (hamburger) ===== */
+    /* ===== HEADER (fond blanc) ===== */
     .header{
       position:sticky;
       top:0;
@@ -37,27 +37,53 @@
       align-items:center;
       justify-content:space-between;
       padding:0 24px;
-      border-bottom:1px solid var(--border);
-      background:rgba(31,35,42,.92);
-      backdrop-filter: blur(8px);
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
     }
+
     .logo{
       display:flex;
       align-items:center;
       gap:12px;
       text-decoration:none;
-      color:var(--text);
+      color:#111827;
+      min-width:170px;
     }
     .logo img{height:34px}
-    .logo strong{font-size:14px; letter-spacing:.4px}
+    .logo strong{
+      font-size:14px;
+      letter-spacing:.4px;
+      color:#111827;
+    }
 
+    /* Desktop nav */
+    .nav-desktop{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .nav-desktop a{
+      color:#374151;
+      text-decoration:none;
+      font-size:14px;
+      padding:10px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
+    }
+    .nav-desktop a:hover{
+      color:#000;
+      background:#f3f4f6;
+      border-color:#e5e7eb;
+    }
+
+    /* Hamburger button (mobile) */
     .menu-btn{
       width:42px;
       height:42px;
       border-radius:12px;
-      border:1px solid var(--border);
-      background:transparent;
-      color:var(--text);
+      border:1px solid #e5e7eb;
+      background:#ffffff;
+      color:#111827;
       cursor:pointer;
       display:flex;
       align-items:center;
@@ -66,12 +92,12 @@
       user-select:none;
     }
     .menu-btn:hover{
-      border-color:#3a4251;
-      background:rgba(255,255,255,.03);
+      background:#f3f4f6;
+      border-color:#d1d5db;
     }
     .menu-btn svg{width:20px;height:20px}
 
-    /* ===== MENU OVERLAY + PANEL ===== */
+    /* ===== MOBILE MENU OVERLAY + PANEL ===== */
     .overlay{
       position:fixed;
       inset:0;
@@ -123,7 +149,7 @@
       border-radius:12px;
       border:1px solid var(--border);
       background:transparent;
-      color:var(--text);
+      color:#ffffff; /* menu sombre */
       cursor:pointer;
       display:flex;
       align-items:center;
@@ -151,6 +177,19 @@
       font-size:12px;
     }
 
+    /* ===== Responsive rules ===== */
+    /* Desktop: show links, hide hamburger + mobile menu */
+    @media (min-width: 900px){
+      .menu-btn{ display:none; }
+      .overlay{ display:none !important; }
+      .menu-panel{ display:none !important; }
+    }
+    /* Mobile: hide desktop links, show hamburger */
+    @media (max-width: 899px){
+      .nav-desktop{ display:none; }
+      .header{ padding:0 16px; }
+    }
+
     /* ===== LAYOUT ===== */
     main{
       max-width:1120px;
@@ -159,7 +198,6 @@
     }
     @media(max-width:980px){
       main{padding:0 18px 74px}
-      .header{padding:0 16px}
     }
 
     .hero{
@@ -338,36 +376,45 @@
       color:#8b92a1;
       font-size:13px;
     }
+
+    /* Make links readable on dark sections */
+    a { color: var(--accent); }
+    a:hover { color: #ffffff; }
   </style>
 </head>
 
 <body>
 
-  <!-- Header minimal + hamburger -->
   <header class="header">
     <a class="logo" href="index.html" aria-label="Retour à l’accueil">
-      <img src="assets/logo.svg" alt="logo" />
-      
+      <img src="assets/logo.svg" alt="L-TOPIC logo" />
+      <strong>L-TOPIC</strong>
     </a>
 
+    <!-- Desktop nav -->
+    <nav class="nav-desktop" aria-label="Navigation">
+      <a href="index.html">Home</a>
+      <a href="vision.html">Vision</a>
+      <a href="concept.html">Concept</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Mobile hamburger -->
     <button class="menu-btn" id="openMenu" aria-label="Ouvrir le menu" aria-expanded="false">
-      <!-- icon hamburger -->
       <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
         <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
       </svg>
     </button>
   </header>
 
-  <!-- Overlay (clic = fermer) -->
+  <!-- Mobile overlay (clic = fermer) -->
   <div class="overlay" id="overlay" aria-hidden="true"></div>
 
-  <!-- Menu panel -->
+  <!-- Mobile menu panel -->
   <nav class="menu-panel" id="menuPanel" aria-label="Menu principal">
     <div class="menu-top">
       <span>NAVIGATION</span>
-      <button class="close-btn" id="closeMenu" aria-label="Fermer le menu">
-        ✕
-      </button>
+      <button class="close-btn" id="closeMenu" aria-label="Fermer le menu">✕</button>
     </div>
 
     <a href="index.html">Home <small>Accueil</small></a>
@@ -486,8 +533,7 @@
           </p>
           <p>
             La sobriété est une conséquence de l’architecture, pas un slogan.
-            Le détail est présenté dans les pages <a href="vision.html" style="color:var(--accent); text-decoration:none;">Vision</a>
-            et <a href="concept.html" style="color:var(--accent); text-decoration:none;">Concept</a>.
+            Le détail est présenté dans les pages <a href="vision.html">Vision</a> et <a href="concept.html">Concept</a>.
           </p>
         </div>
 
@@ -545,11 +591,13 @@
     closeBtn.addEventListener('click', closeMenu);
     overlay.addEventListener('click', closeMenu);
 
-    // ESC pour fermer (confort)
     document.addEventListener('keydown', (e) => {
       if(e.key === 'Escape') closeMenu();
     });
   </script>
+
+</body>
+</html>
 
 </body>
 </html>
