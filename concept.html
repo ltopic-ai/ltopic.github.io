@@ -1,1 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>L-TOPIC — Concept & Architecture</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="L-TOPIC concept & architecture: a Project-Centric Intelligence (PCI) built on a Cognitive Architecture for Intelligence (CAI), designed as Controlled Cognitive Intelligence (CCI): traceable, verifiable, and governable long-horizon decision-making." />
+
+  <style>
+    :root{
+      --bg:#1f232a;
+      --panel:#252a33;
+      --panel2:#2a303b;
+      --border:#2e3440;
+      --text:#eaeaea;
+      --muted:#cfd6e0;
+      --muted2:#aab3c2;
+      --accent:#4f7cff;
+      --accent2:#3b66f0;
+      --shadow: rgba(0,0,0,.35);
+      --white:#ffffff;
+      --black:#111827;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+
+    /* ===== HEADER (white) ===== */
+    .header{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      height:64px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 24px;
+      border-bottom:1px solid #e5e7eb;
+      background:#ffffff;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      text-decoration:none;
+      color:#111827;
+      min-width:170px;
+    }
+    .logo img{height:34px}
+    .logo strong{
+      font-size:14px;
+      letter-spacing:.4px;
+      color:#111827;
+    }
+
+    /* Desktop nav */
+    .nav-desktop{
+      display:flex;
+      align-items:center;
+      gap:18px;
+    }
+    .nav-desktop a{
+      color:#374151;
+      text-decoration:none;
+      font-size:14px;
+      padding:10px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
+    }
+    .nav-desktop a:hover{
+      color:#000;
+      background:#f3f4f6;
+      border-color:#e5e7eb;
+    }
+    .nav-desktop a.active{
+      color:#000;
+      background:#eef2ff;
+      border-color:#dbeafe;
+    }
+
+    /* Hamburger button (mobile) */
+    .menu-btn{
+      width:42px;
+      height:42px;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+      background:#ffffff;
+      color:#111827;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition: border-color .15s ease, background .15s ease;
+      user-select:none;
+    }
+    .menu-btn:hover{
+      background:#f3f4f6;
+      border-color:#d1d5db;
+    }
+    .menu-btn svg{width:20px;height:20px}
+
+    /* ===== MOBILE MENU OVERLAY + PANEL ===== */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.35);
+      backdrop-filter: blur(2px);
+      display:none;
+      z-index:1100;
+    }
+    .overlay.open{display:block}
+
+    .menu-panel{
+      position:fixed;
+      top:14px;
+      right:14px;
+      width:260px;
+      background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.92));
+      border:1px solid var(--border);
+      border-radius:16px;
+      box-shadow: 0 20px 60px var(--shadow);
+      padding:12px;
+      display:none;
+      z-index:1200;
+      transform: translateY(-6px);
+      opacity: 0;
+      transition: transform .16s ease, opacity .16s ease;
+    }
+    .menu-panel.open{
+      display:block;
+      transform: translateY(0);
+      opacity: 1;
+    }
+    .menu-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:6px 6px 10px;
+      border-bottom:1px solid var(--border);
+      margin-bottom:8px;
+    }
+    .menu-top span{
+      font-size:12px;
+      color:var(--muted2);
+      letter-spacing:.25px;
+    }
+    .close-btn{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:transparent;
+      color:#ffffff;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .close-btn:hover{border-color:#3a4251; background:rgba(255,255,255,.03)}
+    .menu-panel a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:12px 12px;
+      border-radius:12px;
+      text-decoration:none;
+      color:var(--text);
+      font-size:14px;
+      border:1px solid transparent;
+    }
+    .menu-panel a:hover{
+      background:rgba(255,255,255,.03);
+      border-color:#3a4251;
+    }
+    .menu-panel a small{
+      color:var(--muted2);
+      font-size:12px;
+    }
+
+    /* Responsive rules */
+    @media (min-width: 900px){
+      .menu-btn{ display:none; }
+      .overlay{ display:none !important; }
+      .menu-panel{ display:none !important; }
+    }
+    @media (max-width: 899px){
+      .nav-desktop{ display:none; }
+      .header{ padding:0 16px; }
+    }
+
+    /* ===== LAYOUT ===== */
+    main{
+      max-width:1120px;
+      margin:56px auto;
+      padding:0 40px 84px;
+    }
+    @media(max-width:980px){
+      main{padding:0 18px 74px}
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap:28px;
+      align-items:start;
+    }
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
+    }
+
+    h1{
+      font-size:44px;
+      line-height:1.08;
+      margin:0 0 14px;
+      letter-spacing:-.6px;
+    }
+    .subtitle{
+      font-size:16.5px;
+      line-height:1.7;
+      color:var(--muted);
+      margin:0 0 14px;
+      max-width:860px;
+    }
+    .cred{
+      color:var(--muted2);
+      font-size:13px;
+      line-height:1.55;
+      margin:0 0 18px;
+    }
+
+    .cta{display:flex;gap:12px;flex-wrap:wrap;margin:12px 0 0}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:11px 14px;
+      border-radius:10px;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--text);
+      text-decoration:none;
+      font-size:14px;
+      user-select:none;
+    }
+    .btn.primary{
+      background:linear-gradient(180deg,var(--accent),var(--accent2));
+      border-color:transparent;
+      color:white;
+      font-weight:600;
+    }
+    .btn:hover{border-color:#3a4251}
+    .btn.primary:hover{filter:brightness(1.05)}
+
+    .panel{
+      background:linear-gradient(180deg,var(--panel),rgba(37,42,51,.88));
+      border:1px solid var(--border);
+      border-radius:14px;
+      padding:18px;
+    }
+    .panel h3{
+      margin:0 0 10px;
+      font-size:14px;
+      color:#ffffff;
+      letter-spacing:.2px;
+    }
+    .panel p{
+      margin:0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.65;
+    }
+    .panel p + p{margin-top:12px}
+
+    .callout{
+      margin-top:14px;
+      padding:14px 14px;
+      border-radius:12px;
+      border:1px dashed #3a4251;
+      background:rgba(0,0,0,.10);
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+    .callout b{color:#fff}
+
+    .section{margin-top:42px}
+    .section h2{
+      margin:0 0 10px;
+      font-size:20px;
+      letter-spacing:-.2px;
+    }
+    .section p{
+      margin:0 0 14px;
+      color:var(--muted);
+      line-height:1.75;
+      font-size:15px;
+      max-width:980px;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap:14px;
+      margin-top:18px;
+    }
+    @media(max-width:980px){
+      .grid{grid-template-columns:1fr}
+    }
+
+    .item{
+      padding:16px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      background:rgba(37,42,51,.75);
+    }
+    .item .k{
+      font-size:13px;
+      color:#fff;
+      margin:0 0 6px;
+      font-weight:700;
+    }
+    .item .v{
+      font-size:14px;
+      color:var(--muted);
+      margin:0;
+      line-height:1.65;
+    }
+    .mini{
+      margin-top:10px;
+      color:var(--muted2);
+      font-size:12.5px;
+      line-height:1.55;
+    }
+
+    .two{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:14px;
+      margin-top:18px;
+    }
+    @media(max-width:980px){
+      .two{grid-template-columns:1fr}
+    }
+
+    .flow{
+      margin-top:12px;
+      padding:14px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(42,48,59,.55);
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.7;
+      overflow:auto;
+      white-space:nowrap;
+    }
+    .flow b{color:#fff}
+
+    .quote{
+      margin-top:18px;
+      padding:16px;
+      border-radius:14px;
+      border:1px solid var(--border);
+      background:rgba(42,48,59,.55);
+      font-size:16px;
+      line-height:1.65;
+      color:#ffffff;
+    }
+
+    .tags{margin-top:12px}
+    .tag{
+      display:inline-flex;
+      font-size:12px;
+      color:var(--muted2);
+      border:1px solid var(--border);
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(0,0,0,.10);
+      margin:0 8px 8px 0;
+    }
+
+    footer{
+      border-top:1px solid var(--border);
+      padding:28px 18px;
+      text-align:center;
+      color:#8b92a1;
+      font-size:13px;
+    }
+
+    /* Make links readable on dark sections */
+    a { color: var(--accent); }
+    a:hover { color: #ffffff; }
+  </style>
+</head>
+
+<body>
+
+  <header class="header">
+    <a class="logo" href="index.html" aria-label="Back to Home">
+      <img src="assets/logo.svg" alt="L-TOPIC logo" />
+      <strong>L-TOPIC</strong>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="nav-desktop" aria-label="Navigation">
+      <a href="index.html">Home</a>
+      <a href="vision.html">Vision</a>
+      <a class="active" href="concept.html">Concept</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <!-- Mobile hamburger -->
+    <button class="menu-btn" id="openMenu" aria-label="Open menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+        <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+  </header>
+
+  <div class="overlay" id="overlay" aria-hidden="true"></div>
+
+  <nav class="menu-panel" id="menuPanel" aria-label="Main menu">
+    <div class="menu-top">
+      <span>NAVIGATION</span>
+      <button class="close-btn" id="closeMenu" aria-label="Close menu">✕</button>
+    </div>
+
+    <a href="index.html">Home <small>Overview</small></a>
+    <a href="vision.html">Vision <small>Principles & criteria</small></a>
+    <a href="concept.html">Concept <small>Architecture</small></a>
+    <a href="contact.html">Contact <small>Pilots & partnerships</small></a>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <div>
+        <h1>Concept & architecture</h1>
+        <p class="subtitle">
+          L-TOPIC is built for <b>long-horizon work</b>: multi-step projects, evolving constraints, and decisions that must remain coherent over time.
+          It is not “a smarter chat”. It is a system that <b>structures memory, goals, and decision-making</b> so that execution can be traced,
+          verified, and improved.
+        </p>
+        <p class="cred">
+          Product + deep tech approach: define capabilities, measure them, iterate. No hand-wavy labels — just operational properties.
+        </p>
+
+        <div class="cta">
+          <a class="btn primary" href="vision.html">Read the vision →</a>
+          <a class="btn" href="index.html">Back to Home</a>
+        </div>
+
+        <div class="callout">
+          L-TOPIC is a <b>Project-Centric Intelligence (PCI)</b>, built on a <b>Cognitive Architecture for Intelligence (CAI)</b>,
+          designed as <b>Controlled Cognitive Intelligence (CCI)</b>: coherent, traceable, verifiable, and governable.
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>What “architecture” means here</h3>
+        <p>
+          Most AI demos optimize for a single response. L-TOPIC optimizes for <b>continuity</b>: maintaining state, keeping a plan,
+          handling uncertainty, and producing evidence over time.
+        </p>
+        <p>
+          The core idea: <b>separate concerns</b> (memory, world model, planning, orchestration, verification, evaluation),
+          then connect them through a controlled loop.
+        </p>
+
+        <div class="tags">
+          <span class="tag">Persistent memory</span>
+          <span class="tag">World model</span>
+          <span class="tag">Multi-goal planning</span>
+          <span class="tag">Verification-first</span>
+          <span class="tag">Traceability</span>
+          <span class="tag">Governance</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>System components</h2>
+      <p>
+        L-TOPIC is composed of explicit modules. Each module is observable and testable. This is how we make the system improve
+        without relying on “magic” or vague claims.
+      </p>
+
+      <div class="grid">
+        <div class="item">
+          <p class="k">1) Memory</p>
+          <p class="v">
+            Structured memory: decisions, constraints, procedures, learnings, and outcomes. Not just chat history.
+          </p>
+          <p class="mini">Features: versioning, retrieval policies, project scoping, and selective recall.</p>
+        </div>
+
+        <div class="item">
+          <p class="k">2) World model</p>
+          <p class="v">
+            Internal representation of context (actors, rules, risks, hypotheses) that updates over time.
+          </p>
+          <p class="mini">Goal: reason beyond immediate inputs and keep coherence across changes.</p>
+        </div>
+
+        <div class="item">
+          <p class="k">3) Goal & plan layer</p>
+          <p class="v">
+            Long-horizon planning: decomposition, prioritization, arbitration, re-planning, trajectory tracking.
+          </p>
+          <p class="mini">Multi-objective control without losing the thread across weeks/months.</p>
+        </div>
+
+        <div class="item">
+          <p class="k">4) Orchestrator</p>
+          <p class="v">
+            Executes workflows: tools, APIs, documents, agents. Produces an action journal with outputs and evidence.
+          </p>
+          <p class="mini">Focus: reproducibility and operational robustness, not one-off “nice answers”.</p>
+        </div>
+
+        <div class="item">
+          <p class="k">5) Verification layer</p>
+          <p class="v">
+            Detects uncertainty, triggers checks, enforces constraints (“I don’t know”, validation steps, guardrails).
+          </p>
+          <p class="mini">Verification-first by design: reduce hallucination risk in long-running work.</p>
+        </div>
+
+        <div class="item">
+          <p class="k">6) Evaluation loop</p>
+          <p class="v">
+            Scenarios, metrics, non-regression tests: improve through continuous feedback, not hype.
+          </p>
+          <p class="mini">A platform that gets better because it measures itself — systematically.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>How it runs</h2>
+      <p>
+        The architecture is designed as a controlled cognitive loop. The output is not “a response” — it is a decision +
+        an execution trace + a set of verifiable artifacts.
+      </p>
+
+      <div class="flow" aria-label="Execution loop (concept)">
+        <b>Input / event</b> → Update <b>World model</b> → Retrieve relevant <b>Memory</b> → Choose <b>Goals</b> →
+        Build/adjust <b>Plan</b> → Execute via <b>Orchestrator</b> → Run <b>Verification</b> → Write <b>Trace</b> →
+        Update <b>Memory</b> → <b>Evaluation</b> (metrics / tests / regressions)
+      </div>
+
+      <div class="two">
+        <div class="panel">
+          <h3>Traceability as a first-class output</h3>
+          <p>
+            In long-horizon environments, “why did it do that?” matters as much as “what did it do?”. L-TOPIC tracks decisions,
+            assumptions, tool calls, intermediate steps, and proofs.
+          </p>
+          <p>
+            This enables audits, reproducibility, and controlled iteration — especially for regulated or high-responsibility use cases.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>Control & governance (CCI)</h3>
+          <p>
+            Controlled Cognitive Intelligence means the system remains pilotable: explicit constraints, defined policies,
+            and safe execution boundaries.
+          </p>
+          <p>
+            The goal is not autonomy for its own sake. The goal is <b>reliable autonomy inside a governed frame</b>.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>Energy sobriety by design</h2>
+      <p>
+        L-TOPIC is designed to be closer to how competent humans operate: <b>capitalize what works</b>, reuse knowledge,
+        and only activate heavy reasoning when it is needed. This architecture avoids “relearning the world” at every step.
+      </p>
+
+      <div class="two">
+        <div class="panel">
+          <h3>Why it matters</h3>
+          <p>
+            Many approaches rely on ever-larger training and brute-force compute. Our stance is different:
+            structural intelligence first — not “more neurons forever”.
+          </p>
+          <p>
+            Sobriety is not a marketing claim. It is a consequence of building a system that focuses on decision structure,
+            reuse, and verification loops.
+          </p>
+        </div>
+
+        <div class="panel">
+          <h3>What we optimize</h3>
+          <p>
+            We optimize for: continuity, coherence, and proof. When those are achieved through architecture,
+            compute is used more efficiently.
+          </p>
+          <p>
+            The system should behave like an expert operator: not omniscient, not universal — but capable of making good decisions in context.
+          </p>
+        </div>
+      </div>
+
+      <div class="quote">
+        <b>L-TOPIC does not try to learn the world.</b><br/>
+        It learns how to <b>decide in the world</b>, over time, with traceable execution.
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>What we can prove (and measure)</h2>
+      <p>
+        “Architecture” only matters if it produces measurable properties. Typical metrics and proofs include:
+      </p>
+
+      <div class="grid">
+        <div class="item">
+          <p class="k">Continuity</p>
+          <p class="v">Task completion across sessions, stable state transitions, no loss of trajectory.</p>
+        </div>
+        <div class="item">
+          <p class="k">Coherence</p>
+          <p class="v">Consistency under changing constraints; fewer contradictions across long workflows.</p>
+        </div>
+        <div class="item">
+          <p class="k">Verification rate</p>
+          <p class="v">Correct handling of uncertainty, checks triggered, and evidence quality.</p>
+        </div>
+        <div class="item">
+          <p class="k">Trace quality</p>
+          <p class="v">Action journals, reproducibility of tool calls, explainability of decisions.</p>
+        </div>
+        <div class="item">
+          <p class="k">Non-regression</p>
+          <p class="v">Scenario tests that prevent capability drift during iteration.</p>
+        </div>
+        <div class="item">
+          <p class="k">Operational fit</p>
+          <p class="v">Performance in dense-doc, multi-step, responsibility-heavy environments.</p>
+        </div>
+      </div>
+
+      <div class="cta" style="margin-top:18px;">
+        <a class="btn primary" href="contact.html">Discuss a pilot →</a>
+        <a class="btn" href="vision.html">Back to Vision</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    © L-TOPIC — Cognitive AI systems for long-horizon work
+  </footer>
+
+  <script>
+    const openBtn = document.getElementById('openMenu');
+    const closeBtn = document.getElementById('closeMenu');
+    const overlay = document.getElementById('overlay');
+    const menuPanel = document.getElementById('menuPanel');
+
+    function openMenu(){
+      overlay.classList.add('open');
+      menuPanel.classList.add('open');
+      openBtn.setAttribute('aria-expanded', 'true');
+      overlay.setAttribute('aria-hidden', 'false');
+    }
+    function closeMenu(){
+      overlay.classList.remove('open');
+      menuPanel.classList.remove('open');
+      openBtn.setAttribute('aria-expanded', 'false');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    openBtn.addEventListener('click', () => {
+      const isOpen = menuPanel.classList.contains('open');
+      if(isOpen) closeMenu(); else openMenu();
+    });
+
+    closeBtn.addEventListener('click', closeMenu);
+    overlay.addEventListener('click', closeMenu);
+
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape') closeMenu();
+    });
+  </script>
+
+</body>
+</html>
 
