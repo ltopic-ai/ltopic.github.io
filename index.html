@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>L-TOPIC — Cognitive Architecture for Intelligence platform</title>
+  <title>L-TOPIC — Cognitive Architecture for Artificial Intelligence platform</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="L-TOPIC: a long-horizon AI platform (persistent memory, world model, multi-goal reasoning) designed as Project-Centric Intelligence (PCI), built on a Cognitive Architecture for Intelligence (CAI) with control (CCI)." />
 
@@ -40,7 +40,6 @@
       border-bottom:1px solid #e5e7eb;
       background:#ffffff;
     }
-
     .logo{
       display:flex;
       align-items:center;
@@ -149,7 +148,7 @@
       border-radius:12px;
       border:1px solid var(--border);
       background:transparent;
-      color:#ffffff; /* dark menu */
+      color:#ffffff;
       cursor:pointer;
       display:flex;
       align-items:center;
@@ -198,12 +197,7 @@
       main{padding:0 18px 74px}
     }
 
-    .hero-title{
-  grid-column: 1 / -1;
-  margin-bottom: 28px;
-}
-
-
+    /* HERO GRID (title spans full width) */
     .hero{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
@@ -214,12 +208,25 @@
       .hero{grid-template-columns:1fr}
     }
 
+    .hero-title{
+      grid-column:1 / -1;
+      margin-bottom: 8px;
+    }
+
     h1{
       font-size:46px;
       line-height:1.08;
       margin:0 0 14px;
       letter-spacing:-.6px;
     }
+
+    .hero-left{grid-column:1}
+    .hero-right{grid-column:2}
+
+    @media(max-width:980px){
+      .hero-left,.hero-right{grid-column:auto}
+    }
+
     .subtitle{
       font-size:17px;
       line-height:1.65;
@@ -276,6 +283,29 @@
       line-height:1.65;
     }
     .panel p + p{margin-top:12px}
+
+    /* WHY NOW vertical alignment:
+       Instead of big margin like 185px, we align via padding-top
+       so it matches the start of the paragraph block. */
+    .why-now{
+      padding-top: 56px; /* adjust slightly if needed (e.g. 48–64) */
+    }
+    @media(max-width:980px){
+      .why-now{ padding-top: 0; }
+    }
+
+    .callout{
+      margin-top:14px;
+      padding:14px 14px;
+      border-radius:12px;
+      border:1px dashed #3a4251;
+      background:rgba(0,0,0,.10);
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.6;
+    }
+    .callout b,
+    .callout strong{color:#fff}
 
     .grid{
       display:grid;
@@ -339,19 +369,6 @@
       .split{grid-template-columns:1fr}
     }
 
-    .callout{
-      margin-top:14px;
-      padding:14px 14px;
-      border-radius:12px;
-      border:1px dashed #3a4251;
-      background:rgba(0,0,0,.10);
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.6;
-    }
-    .callout b,
-    .callout strong{color:#fff}
-
     .quote{
       margin-top:18px;
       padding:16px;
@@ -363,6 +380,30 @@
       color:#ffffff;
     }
 
+    /* ARCHITECTURE IMAGE SECTION */
+    .architecture-visual{
+      margin-top: 26px;
+      border:1px solid var(--border);
+      border-radius:14px;
+      overflow:hidden;
+      background:rgba(42,48,59,.35);
+    }
+    .architecture-visual img{
+      display:block;
+      width:100%;
+      height:auto;
+      max-height: 520px;
+      object-fit: contain;
+      background: rgba(0,0,0,.12);
+    }
+    .architecture-visual .caption{
+      padding:12px 14px 14px;
+      color:var(--muted2);
+      font-size:13px;
+      line-height:1.55;
+      border-top:1px solid var(--border);
+    }
+
     footer{
       border-top:1px solid var(--border);
       padding:28px 18px;
@@ -371,18 +412,10 @@
       font-size:13px;
     }
 
-    .why-now{
-  margin-top: 22px;
-}
-    
-    .hero-title h1{
-  max-width: 1120px;
-}
-
     /* Make links readable on dark sections */
     a { color: var(--accent); }
     a:hover { color: #ffffff; }
-    .nav-desktop a { color:#374151; } /* keep header links dark */
+    .nav-desktop a { color:#374151; }
     .nav-desktop a:hover { color:#000; }
     .logo { color:#111827; }
   </style>
@@ -429,14 +462,16 @@
 
   <main>
 
-   <section class="hero">
-      
-        <div class="hero-title">
-  <h1>Cognitive Architecture for Artificial Intelligence platform</h1>
-</div>
+    <!-- HERO -->
+    <section class="hero">
 
- <div class="hero">
-   </div>
+      <div class="hero-title">
+        <h1>Cognitive Architecture for Artificial Intelligence platform</h1>
+      </div>
+
+      <!-- Left column -->
+      <div class="hero-left">
+
         <p class="subtitle">
           L-TOPIC is designed for situations where single-shot answers are not enough:
           <b>long-running projects</b>, <b>complex decisions</b>, and <b>evolving contexts</b>.
@@ -447,13 +482,11 @@
           Pragmatic approach: every capability is defined, observed, tested, and improved (memory, planning, verification).
         </p>
 
-        <!-- CTA: more action-oriented -->
         <div class="cta">
           <a class="btn" href="vision.html">Read the vision →</a>
           <a class="btn" href="concept.html">Concept & architecture</a>
         </div>
 
-        <!-- NEW: marketing callout right after hero -->
         <div class="callout">
           <strong>If you are dealing with long-running projects, complex decisions, or systems that must remain coherent over time,</strong>
           you already know the limits of prompt-based AI.
@@ -462,119 +495,128 @@
         </div>
 
         <section class="section" aria-label="Why L-TOPIC exists">
-  <h3>Why L-TOPIC exists</h3>
-  <p>
-    Most AI systems optimize for immediate answers. Real organizations face a different problem:
-    decisions must remain coherent over time.
-  </p>
-  <p>
-    Projects span weeks or months. Context evolves. Constraints change. Responsibility remains.
-  </p>
-  <p>
-    L-TOPIC exists to address this gap: to make artificial intelligence operate <b>across time</b>, not just across prompts.
-  </p>
-</section>
-
-
-        <div class="grid">
-          <div class="panel">
-            <h3>Key capability — Persistent memory</h3>
-            <p>A structured, reusable memory: decisions, constraints, procedures, learnings — not just logs.</p>
-          </div>
-          <div class="panel">
-            <h3>Key capability — World model</h3>
-            <p>An internal representation of context (actors, rules, risks, hypotheses) that updates over time.</p>
-          </div>
-          <div class="panel">
-            <h3>Key capability — Long-horizon multi-goal reasoning</h3>
-            <p>Decomposition, prioritization, arbitration, and replanning across long trajectories, with continuity.</p>
-          </div>
-        </div>
-
-        <!-- NEW: WHO THIS IS FOR -->
-        <section class="section">
-          <h3>Who L-TOPIC is for</h3>
-          <p class="subtitle">
-            L-TOPIC is not a general-purpose chatbot.
-            It is built for people and organizations who operate in environments where mistakes, drift, or loss of context have real costs.
+          <h3>Why L-TOPIC exists</h3>
+          <p>
+            Most AI systems optimize for immediate answers. Real organizations face a different problem:
+            decisions must remain coherent over time.
           </p>
-
-          <div class="list">
-            <div class="item">
-              <p class="k">Operators & builders</p>
-              <p class="v">Running long-term projects, complex operations, or multi-step workflows.</p>
-            </div>
-            <div class="item">
-              <p class="k">Technical founders</p>
-              <p class="v">Who need AI systems that remain reliable, auditable, and evolutive over time.</p>
-            </div>
-            <div class="item">
-              <p class="k">Regulated or high-responsibility domains</p>
-              <p class="v">Where traceability, continuity, and control are not optional.</p>
-            </div>
-            <div class="item">
-              <p class="k">Long-horizon thinkers</p>
-              <p class="v">Who care more about decision quality over time than impressive one-shot answers.</p>
-            </div>
-          </div>
+          <p>
+            Projects span weeks or months. Context evolves. Constraints change. Responsibility remains.
+          </p>
+          <p>
+            L-TOPIC exists to address this gap: to make artificial intelligence operate <b>across time</b>, not just across prompts.
+          </p>
         </section>
 
       </div>
 
-      <div class="panel why-now">
-  <h3>Why L-TOPIC now</h3>
-  <p>
-    Today’s AI is impressive in short bursts—but brittle over time. Most systems are optimized for single answers,
-    not for staying coherent across weeks, evolving constraints, and real accountability.
-  </p>
-  <p>
-    L-TOPIC targets the gap: long-horizon decision-making. Persistent memory, explicit world modeling,
-    controllable execution, and evaluation-first loops—so an AI system can operate like a competent human team:
-    structured, traceable, and resilient.
-  </p>
+      <!-- Right column -->
+      <div class="hero-right panel why-now">
+        <h3>Why L-TOPIC now</h3>
+        <p>
+          Today’s AI is impressive in short bursts—but brittle over time. Most systems are optimized for single answers,
+          not for staying coherent across weeks, evolving constraints, and real accountability.
+        </p>
+        <p>
+          L-TOPIC targets the gap: long-horizon decision-making. Persistent memory, explicit world modeling,
+          controllable execution, and evaluation-first loops—so an AI system can operate like a competent human team:
+          structured, traceable, and resilient.
+        </p>
 
-  <div class="callout">
-    <b>Not a demo.</b> A platform designed for sustained work.
-  </div>
+        <div class="callout">
+          <b>Not a demo.</b> A platform designed for sustained work.
+        </div>
 
-  <div class="cta" style="margin-top:14px;">
-    <a class="btn primary" href="why.html">Read “Why now” →</a>
-  </div>
-</div>
+        <div class="cta" style="margin-top:14px;">
+          <a class="btn primary" href="why.html">Read “Why now” →</a>
+        </div>
+      </div>
 
     </section>
 
+    <!-- ARCHITECTURE IMAGE (best place: after hero, before capabilities) -->
+    <section class="architecture-visual" aria-label="Architecture overview">
+      <img src="assets/architecture-diagram.png" alt="L-TOPIC cognitive architecture overview" />
+      <div class="caption">
+        High-level view of L-TOPIC’s cognitive architecture: perception & modeling, reasoning & planning,
+        execution & learning — operating as a continuous system over time.
+      </div>
+    </section>
+
+    <!-- Key capabilities -->
+    <div class="grid">
+      <div class="panel">
+        <h3>Key capability — Persistent memory</h3>
+        <p>A structured, reusable memory: decisions, constraints, procedures, learnings — not just logs.</p>
+      </div>
+      <div class="panel">
+        <h3>Key capability — World model</h3>
+        <p>An internal representation of context (actors, rules, risks, hypotheses) that updates over time.</p>
+      </div>
+      <div class="panel">
+        <h3>Key capability — Long-horizon multi-goal reasoning</h3>
+        <p>Decomposition, prioritization, arbitration, and replanning across long trajectories, with continuity.</p>
+      </div>
+    </div>
+
+    <!-- WHO THIS IS FOR -->
+    <section class="section">
+      <h3>Who L-TOPIC is for</h3>
+      <p class="subtitle">
+        L-TOPIC is not a general-purpose chatbot.
+        It is built for people and organizations who operate in environments where mistakes, drift, or loss of context have real costs.
+      </p>
+
+      <div class="list">
+        <div class="item">
+          <p class="k">Operators & builders</p>
+          <p class="v">Running long-term projects, complex operations, or multi-step workflows.</p>
+        </div>
+        <div class="item">
+          <p class="k">Technical founders</p>
+          <p class="v">Who need AI systems that remain reliable, auditable, and evolutive over time.</p>
+        </div>
+        <div class="item">
+          <p class="k">Regulated or high-responsibility domains</p>
+          <p class="v">Where traceability, continuity, and control are not optional.</p>
+        </div>
+        <div class="item">
+          <p class="k">Long-horizon thinkers</p>
+          <p class="v">Who care more about decision quality over time than impressive one-shot answers.</p>
+        </div>
+      </div>
+    </section>
+
     <section class="section" aria-label="Initial focus">
-  <h3>Initial focus</h3>
-  <p>
-    L-TOPIC is designed for environments where time, complexity and accountability matter.
-  </p>
+      <h3>Initial focus</h3>
+      <p>
+        L-TOPIC is designed for environments where time, complexity and accountability matter.
+      </p>
 
-  <div class="list">
-    <div class="item">
-      <p class="k">Long-running projects</p>
-      <p class="v">Work that spans weeks or months, where context and constraints evolve.</p>
-    </div>
-    <div class="item">
-      <p class="k">Dense or evolving documentation</p>
-      <p class="v">Specifications, contracts, procedures, and knowledge that must remain consistent over time.</p>
-    </div>
-    <div class="item">
-      <p class="k">Multi-step operational workflows</p>
-      <p class="v">Processes that require planning, re-planning, and traceable decisions across many steps.</p>
-    </div>
-    <div class="item">
-      <p class="k">High-responsibility domains</p>
-      <p class="v">Where reliability, control and auditability are not optional.</p>
-    </div>
-  </div>
+      <div class="list">
+        <div class="item">
+          <p class="k">Long-running projects</p>
+          <p class="v">Work that spans weeks or months, where context and constraints evolve.</p>
+        </div>
+        <div class="item">
+          <p class="k">Dense or evolving documentation</p>
+          <p class="v">Specifications, contracts, procedures, and knowledge that must remain consistent over time.</p>
+        </div>
+        <div class="item">
+          <p class="k">Multi-step operational workflows</p>
+          <p class="v">Processes that require planning, re-planning, and traceable decisions across many steps.</p>
+        </div>
+        <div class="item">
+          <p class="k">High-responsibility domains</p>
+          <p class="v">Where reliability, control and auditability are not optional.</p>
+        </div>
+      </div>
 
-  <p style="margin-top:14px">
-    The platform is not built for short-lived tasks, but for situations where decisions must remain
-    traceable, revisable and coherent over time.
-  </p>
-</section>
-
+      <p style="margin-top:14px">
+        The platform is not built for short-lived tasks, but for situations where decisions must remain
+        traceable, revisable and coherent over time.
+      </p>
+    </section>
 
     <section class="section">
       <h2>A platform, not a demo</h2>
@@ -683,12 +725,6 @@
       if(e.key === 'Escape') closeMenu();
     });
   </script>
-
-</body>
-</html>
-
-
-
 
 </body>
 </html>
