@@ -198,6 +198,12 @@
       main{padding:0 18px 74px}
     }
 
+    .hero-title{
+  grid-column: 1 / -1;
+  margin-bottom: 28px;
+}
+
+
     .hero{
       display:grid;
       grid-template-columns: 1.15fr .85fr;
@@ -365,6 +371,10 @@
       font-size:13px;
     }
 
+    .why-now{
+  margin-top: 22px;
+}
+
     /* Make links readable on dark sections */
     a { color: var(--accent); }
     a:hover { color: #ffffff; }
@@ -417,7 +427,10 @@
 
    <section class="hero">
       <div>
-        <h1>Cognitive Architecture for Intelligence platform</h1>
+        <div class="hero-title">
+  <h1>Cognitive Architecture for Artificial Intelligence platform</h1>
+</div>
+
 
         <p class="subtitle">
           L-TOPIC is designed for situations where single-shot answers are not enough:
@@ -503,7 +516,7 @@
 
       </div>
 
-      <div class="panel">
+      <div class="panel why-now">
   <h3>Why L-TOPIC now</h3>
   <p>
     Today’s AI is impressive in short bursts—but brittle over time. Most systems are optimized for single answers,
