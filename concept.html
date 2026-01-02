@@ -212,6 +212,12 @@
       .hero{grid-template-columns:1fr}
     }
 
+    /* TITLE FULL WIDTH (same logic as index) */
+    .hero-title{
+      grid-column: 1 / -1;
+      margin-bottom: 8px;
+    }
+
     h1{
       font-size:44px;
       line-height:1.08;
@@ -438,8 +444,14 @@
   <main>
 
     <section class="hero">
-      <div>
+
+      <!-- TITLE FULL WIDTH -->
+      <div class="hero-title">
         <h1>Concept & architecture</h1>
+      </div>
+
+      <!-- LEFT COLUMN -->
+      <div>
         <p class="subtitle">
           L-TOPIC is built for <b>long-horizon work</b>: multi-step projects, evolving constraints, and decisions that must remain coherent over time.
           It is not “a smarter chat”. It is a system that <b>structures memory, goals, and decision-making</b> so that execution can be traced,
@@ -460,6 +472,7 @@
         </div>
       </div>
 
+      <!-- RIGHT COLUMN -->
       <div class="panel">
         <h3>What “architecture” means here</h3>
         <p>
@@ -695,4 +708,3 @@
 
 </body>
 </html>
-
