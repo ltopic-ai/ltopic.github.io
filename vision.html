@@ -355,8 +355,14 @@
       color:#ffffff;
     }
 
+    /* ===== FIX: title full-width + clean grid children ===== */
     .hero-title{
       grid-column: 1 / -1;
+    }
+    .hero-left{ grid-column: 1; }
+    .hero-right{ grid-column: 2; }
+    @media(max-width:980px){
+      .hero-left,.hero-right{ grid-column: auto; }
     }
 
     footer{
@@ -415,10 +421,14 @@
   <main>
 
     <section class="hero">
-      
-        <div class="hero-title">
+
+      <!-- TITLE FULL WIDTH -->
+      <div class="hero-title">
         <h1>Vision & functional criteria</h1>
-        </div>
+      </div>
+
+      <!-- LEFT COLUMN -->
+      <div class="hero-left">
         <p class="subtitle">
           L-TOPIC is built for long-running work: projects that require continuity, decision-making, and control over time.
           Our approach is product-oriented and deep-tech: we define capabilities, measure them, and iterate.
@@ -448,7 +458,8 @@
         </div>
       </div>
 
-      <div class="panel">
+      <!-- RIGHT COLUMN -->
+      <div class="hero-right panel">
         <h3>Positioning</h3>
         <p>
           The term <b>AGI</b> has no single scientific definition today. Many actors define their own criteria (memory, autonomy,
@@ -466,16 +477,15 @@
         </div>
 
         <div class="callout" style="margin-top:12px;">
-  <b>Physical AI ready.</b> L-TOPIC is designed as a hardware-independent cognitive core:
-  it can inhabit multiple bodies (humanoid robots, mobile machines, industrial arms, exoskeletons),
-  adapting to available sensors while keeping <b>project memory</b>, <b>decision continuity</b>, and <b>control</b>.
-  <br/><br/>
-  The body becomes interchangeable. The intelligence persists.
-  <div class="cta" style="margin-top:12px;">
-    <a class="btn primary" href="physical-ai.html">Read “Physical AI” →</a>
-  </div>
-</div>
-
+          <b>Physical AI ready.</b> L-TOPIC is designed as a hardware-independent cognitive core:
+          it can inhabit multiple bodies (humanoid robots, mobile machines, industrial arms, exoskeletons),
+          adapting to available sensors while keeping <b>project memory</b>, <b>decision continuity</b>, and <b>control</b>.
+          <br/><br/>
+          The body becomes interchangeable. The intelligence persists.
+          <div class="cta" style="margin-top:12px;">
+            <a class="btn primary" href="physical-ai.html">Read “Physical AI” →</a>
+          </div>
+        </div>
 
         <div class="pill-row">
           <span class="pill">Continuity over time</span>
@@ -484,6 +494,7 @@
           <span class="pill">Governance & control</span>
         </div>
       </div>
+
     </section>
 
     <section class="section">
