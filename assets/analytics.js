@@ -48,6 +48,7 @@
       // Only canonical paths and referrer origins; never URLs containing form values or arbitrary query strings.
       let referrer='';try {referrer=new URL(document.referrer).origin;} catch {}
       tag('config',ga,{send_page_view:false,allow_google_signals:false,allow_ad_personalization_signals:false,
+        cookie_expires:15552000,cookie_update:false,
         page_location:location.origin+(language==='en'?'/en/':'/')+(safePage==='other'?'':safePage+'.html'),
         page_referrer:referrer,page_title:'Ltopic — '+safePage});
       inject('https://www.googletagmanager.com/gtag/js?id='+ga);
