@@ -9,6 +9,11 @@
     accept:'Accept all',reject:'Reject all',settings:'Customise',save:'Save my choices',close:'Close',audience:'Audience measurement · Google Analytics',behavior:'Browsing analysis · Microsoft Clarity',privacy:'Privacy policy',saved:'Choices saved.'
   }:{title:'Vos choix de confidentialité',intro:'Avec votre accord, Google Analytics mesure les visites et Microsoft Clarity analyse la navigation par cartes thermiques et enregistrements de sessions. Le formulaire de contact fonctionne sans ces outils.',
     accept:'Tout accepter',reject:'Tout refuser',settings:'Personnaliser',save:'Enregistrer mes choix',close:'Fermer',audience:'Mesure d’audience · Google Analytics',behavior:'Analyse de navigation · Microsoft Clarity',privacy:'Politique de confidentialité',saved:'Choix enregistrés.'};
+  // Describe only configured providers; adding a provider requires a consent-version bump.
+  const descriptions = [];
+  if(available.analytics) descriptions.push(en ? 'Google Analytics measures visits' : 'Google Analytics mesure les visites');
+  if(available.behavior) descriptions.push(en ? 'Microsoft Clarity analyses browsing through heatmaps and session recordings' : 'Microsoft Clarity analyse la navigation par cartes thermiques et enregistrements de sessions');
+  t.intro = (en ? 'With your permission, ' : 'Avec votre accord, ') + descriptions.join(en ? ' and ' : ' et ') + (en ? '. Refusing does not prevent you from using the site.' : '. Le refus ne bloque pas l’utilisation du site.');
   function read(){try{const v=JSON.parse(localStorage.getItem(key));if(v?.version===version&&Date.now()-v.time<ttl&&v.time<=Date.now())return {analytics:v.analytics===true&&available.analytics,behavior:v.behavior===true&&available.behavior};}catch{}return null;}
   let choice=read();api.applyConsent(choice||{});
   if(!available.analytics&&!available.behavior)return;
@@ -20,6 +25,7 @@
   document.body.append(banner,dialog);banner.hidden=!!choice;
   const a=dialog.querySelector('[name="analytics"]'),b=dialog.querySelector('[name="behavior"]');
   a.disabled=!available.analytics;b.disabled=!available.behavior;
+  a.closest('label').hidden=!available.analytics;b.closest('label').hidden=!available.behavior;
   function open(){a.checked=!!choice?.analytics;b.checked=!!choice?.behavior;dialog.showModal();}
   function save(value){choice={analytics:!!value.analytics&&available.analytics,behavior:!!value.behavior&&available.behavior};try{localStorage.setItem(key,JSON.stringify({...choice,time:Date.now(),version}));}catch{}banner.hidden=true;dialog.close();api.applyConsent(choice);}
   function click(event){const action=event.target.closest('[data-choice]')?.dataset.choice;
